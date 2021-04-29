@@ -1,6 +1,6 @@
 miro.onReady(() => {
   // Subscribe on user selected widgets
-  miro.addListener(miro.enums.event.SELECTION_UPDATED, getWidget)
+  //miro.addListener(miro.enums.event.SELECTION_UPDATED, getWidget)
   // getWidget()
 })
 
@@ -13,12 +13,11 @@ async function getWidget() {
   let widgets = await miro.board.selection.get()
 
   // Get first widget from selected widgets
-  let allText = widgets.text
 
-  for (i = 0; i < allText.length; i++){
-    if (typeof allText[i] === 'string') {
+  for (i = 0; i < widgets.length; i++){
+    if (typeof widgets.text[i] === 'string') {
       tipElement.style.opacity = '0'
-      widgetTextElement.innerHTML += (i+1) + ": " + allText[i];
+      widgetTextElement.innerHTML += (i+1) + ": " + widgets.text[i];
       }
   }
 
