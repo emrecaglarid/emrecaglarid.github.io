@@ -15,9 +15,9 @@ async function getWidget() {
   // Get first widget from selected widgets
 
   for (i = 0; i < widgets.length; i++){
-    if (typeof widgets.text[i] === 'string') {
+    if (typeof widgets[i].text === 'string') {
       tipElement.style.opacity = '0'
-      widgetTextElement.innerHTML += (i+1) + ": " + widgets.text[i];
+      widgetTextElement.innerHTML += (i+1) + ": " + widgets[i].text;
       }
   }
 
