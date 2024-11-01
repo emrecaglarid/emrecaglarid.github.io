@@ -1,83 +1,447 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="light">
 <head>
-<title>[Your Name] - UX Portfolio</title>
-<style>
-body {
-  font-family: monospace; /* Or a similar plain font */
-  background-color: #f0f0f0;
-  margin: 2em;
-  line-height: 1.6;
-  color: #333;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - UX Portfolio</title>
+    <style>
+        /* Theme variables */
+        html[data-theme="light"] {
+            --bg-color: #fff;
+            --bg-secondary: #f8f8f8;
+            --text-color: #333;
+            --text-secondary: #666;
+            --border-color: #ddd;
+            --link-color: #0066cc;
+            --drawer-shadow: rgba(0, 0, 0, 0.05);
+        }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 0.5em;
-}
+        html[data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --bg-secondary: #222;
+            --text-color: #ddd;
+            --text-secondary: #999;
+            --border-color: #333;
+            --link-color: #66b3ff;
+            --drawer-shadow: rgba(0, 0, 0, 0.2);
+        }
 
-h2 {
-  font-size: 1.5em;
-  margin-top: 1em;
-}
+        /* Base styles */
+        body {
+            font-family: monospace;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background: var(--bg-color);
+            transition: color 0.3s, background-color 0.3s;
+        }
 
-a {
-  color: #007bff; /* A simple blue link color */
-  text-decoration: underline;
-}
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2em;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            z-index: 100;
+            padding: 8px;
+            transition: all 0.3s ease-out;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
 
-a:hover {
-  text-decoration: none;
-}
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+        }
 
-.project {
-  margin-bottom: 2em;
-  border: 1px solid #ddd;
-  padding: 1em;
-  background-color: #fff;
-}
+        /* Main content */
+        .main-content {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 40px;
+            transition: all 0.3s ease-out;
+        }
 
-.contact {
-    margin-top: 2em;
-    border-top: 1px solid #ddd;
-    padding-top: 1em;
-}
+        /* Hide elements when drawer is open */
+        .drawer-open .main-content > *:not(main) {
+            display: none;
+        }
 
+        .drawer-open .main-content main > *:not(#work) {
+            display: none;
+        }
 
-/* Cool touch: subtle typewriter effect on hover */
-.project:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Add a subtle shadow on hover */
-}
+        .drawer-open .project p:not(:last-child),
+        .drawer-open .project .date {
+            display: none;
+        }
 
-</style>
+        /* Typography */
+        h1, h2, h3 {
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* Links */
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-bottom-color: currentColor;
+        }
+
+        /* Project list */
+        .project {
+            margin-bottom: 40px;
+            padding-left: 20px;
+            border-left: 1px solid var(--border-color);
+            transition: all 0.3s ease-out;
+        }
+
+        .drawer-open .project {
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .date {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        /* Drawer */
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-secondary);
+            overflow-y: auto;
+            transition: all 0.3s ease-out;
+            padding: 80px 40px 40px;
+            box-sizing: border-box;
+        }
+
+        .drawer.open {
+            right: 0;
+        }
+
+        /* Drawer close button */
+        .drawer-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-color);
+            z-index: 101;
+            display: none;
+            width: 40px;
+            height: 40px;
+            padding: 8px;
+            border-radius: 4px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drawer.open .drawer-close {
+            display: flex;
+        }
+
+        .drawer-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Desktop styles */
+        @media (min-width: 1024px) {
+            .main-content {
+                margin-right: 0;
+                margin-left: 40px;
+            }
+
+            .drawer-open .main-content {
+                max-width: 300px;
+            }
+
+            .drawer-open .project h3 {
+                font-size: 1em;
+                margin: 0.5em 0;
+            }
+
+            .drawer {
+                width: calc(100% - 380px);
+                border-left: 1px solid var(--border-color);
+                box-shadow: -4px 0 16px var(--drawer-shadow);
+            }
+
+            .drawer-open .theme-toggle {
+                right: calc(100% - 340px);
+            }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 1023px) {
+            .drawer {
+                width: 100%;
+            }
+
+            .main-content {
+                margin: 40px auto;
+            }
+
+            .drawer-open .main-content {
+                filter: blur(2px);
+                pointer-events: none;
+            }
+
+            /* Mobile button positioning */
+            .drawer-open .theme-toggle {
+                right: auto;
+                left: 20px;
+            }
+
+            .drawer-close {
+                right: 20px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Case study styles */
+        .case-study {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .metadata {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin: 1em 0;
+        }
+
+        .metadata span {
+            margin-right: 2em;
+        }
+
+        .image-container {
+            margin: 2em 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .caption {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-top: 0.5em;
+        }
+    </style>
 </head>
 <body>
+    <button class="theme-toggle" aria-label="Toggle theme">☼</button>
 
-<h1>[Your Name]</h1>
-<p>[Short Bio - One or two sentences]</p>
+    <div class="main-content">
+        <header>
+            <h1>Your Name</h1>
+            <p>UX Designer • Researcher • Problem Solver</p>
+        </header>
 
+        <nav>
+            <a href="#work" onclick="scrollToSection('work'); return false;">Work</a> •
+            <a href="#about" onclick="scrollToSection('about'); return false;">About</a> •
+            <a href="#contact" onclick="scrollToSection('contact'); return false;">Contact</a>
+        </nav>
 
-<h2>Projects</h2>
+        <main>
+            <section id="work">
+                <h2>Selected Work</h2>
+                
+                <div class="project">
+                    <h3>Design System Evolution</h3>
+                    <span class="date">2024</span>
+                    <p>Led the redesign and implementation of a comprehensive design system serving 20+ product teams.</p>
+                    <p>→ <a href="#" onclick="openCaseStudy('project1'); return false;">View Case Study</a></p>
+                </div>
 
-<div class="project">
-  <h3>[Project Title 1]</h3>
-  <p>[Brief description of Project 1.  Link to live site or case study if available.]  <a href="[link]">[Link]</a></p>
-</div>
+                <div class="project">
+                    <h3>Healthcare Portal Redesign</h3>
+                    <span class="date">2023</span>
+                    <p>Reimagined patient experience for a major healthcare provider.</p>
+                    <p>→ <a href="#" onclick="openCaseStudy('project2'); return false;">View Case Study</a></p>
+                </div>
 
-<div class="project">
-  <h3>[Project Title 2]</h3>
-  <p>[Brief description of Project 2. Link to live site or case study if available.] <a href="[link]">[Link]</a></p>
-</div>
+                <div class="project">
+                    <h3>E-commerce Platform</h3>
+                    <span class="date">2023</span>
+                    <p>Redesigned checkout flow increasing conversion by 25%.</p>
+                    <p>→ <a href="#" onclick="openCaseStudy('project3'); return false;">View Case Study</a></p>
+                </div>
+            </section>
 
-<!-- Add more project divs as needed -->
+            <section id="about">
+                <h2>About</h2>
+                <p>I'm a UX designer focused on creating simple solutions to complex problems.</p>
+            </section>
 
+            <section id="contact">
+                <h2>Contact</h2>
+                <p>
+                    Email: <a href="mailto:you@example.com">you@example.com</a><br>
+                    LinkedIn: <a href="#">linkedin.com/in/yourname</a>
+                </p>
+            </section>
+        </main>
+    </div>
 
-<div class="contact">
-<h2>Contact</h2>
-<p>Email: <a href="mailto:[your_email]">[your_email]</a></p>
-<p>LinkedIn: <a href="[your_linkedin]">[your_linkedin]</a></p>
-</div>
+    <div class="drawer">
+        <button class="drawer-close" onclick="closeDrawer()">×</button>
+        <div id="case-studies">
+            <article class="case-study" id="project1" style="display: none;">
+                <h1>Design System Evolution</h1>
+                <div class="metadata">
+                    <span>Role: Lead Designer</span>
+                    <span>Timeline: 8 months</span>
+                </div>
+                <section class="section">
+                    <h2>Overview</h2>
+                    <p>A complete overhaul of our design system to support rapid product development.</p>
+                    <div class="image-container">
+                        <img src="/api/placeholder/800/400" alt="Design system components">
+                        <p class="caption">Core component library evolution</p>
+                    </div>
+                </section>
+            </article>
 
+            <article class="case-study" id="project2" style="display: none;">
+                <h1>Healthcare Portal Redesign</h1>
+                <div class="metadata">
+                    <span>Role: UX Lead</span>
+                    <span>Timeline: 6 months</span>
+                </div>
+                <section class="section">
+                    <h2>Overview</h2>
+                    <p>Redesigned the patient portal experience to improve accessibility.</p>
+                </section>
+            </article>
 
+            <article class="case-study" id="project3" style="display: none;">
+                <h1>E-commerce Platform</h1>
+                <div class="metadata">
+                    <span>Role: UX Designer</span>
+                    <span>Timeline: 4 months</span>
+                </div>
+                <section class="section">
+                    <h2>Overview</h2>
+                    <p>Streamlined checkout process for better conversion.</p>
+                </section>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function openCaseStudy(projectId) {
+            const caseStudies = document.querySelectorAll('.case-study');
+            const project = document.getElementById(projectId);
+            const drawer = document.querySelector('.drawer');
+            const mainContent = document.querySelector('.main-content');
+            
+            if (caseStudies && project && drawer && mainContent) {
+                caseStudies.forEach(study => {
+                    study.style.display = 'none';
+                });
+                project.style.display = 'block';
+                drawer.classList.add('open');
+                document.body.classList.add('drawer-open');
+                
+                // Ensure the clicked project is visible in the navigation
+                const projectElement = document.querySelector(`[href="#"][onclick*="${projectId}"]`);
+                if (projectElement) {
+                    projectElement.parentElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        function closeDrawer() {
+            const drawer = document.querySelector('.drawer');
+            if (drawer) {
+                drawer.classList.remove('open');
+                document.body.classList.remove('drawer-open');
+            }
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.querySelector('.theme-toggle');
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            if (themeToggle) {
+                themeToggle.innerHTML = newTheme === 'light' ? '☼' : '☾';
+            }
+        }
+
+        // Make functions globally available
+        window.scrollToSection = scrollToSection;
+        window.openCaseStudy = openCaseStudy;
+        window.closeDrawer = closeDrawer;
+
+        // Wait for DOM to be loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.querySelector('.theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+
+            // Add event listeners
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeDrawer();
+                }
+            });
+
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('drawer')) {
+                    closeDrawer();
+                }
+            });
+
+            // Set initial theme based on system preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = prefersDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            if (themeToggle) {
+                themeToggle.innerHTML = theme === 'light' ? '☼' : '☾';
+            }
+        });
+    </script>
 </body>
 </html>
