@@ -1,25 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
-    <script>
-    miro.onReady(() => {
-      miro.initialize({
-        extensionPoints: {
-          bottomBar: {
-            title: 'World Builder for Designers',
-            svgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
-            onClick: () => {
-              let allStickers = await miro.board.widgets.get({type: 'sticker'})
-			  console.log(allStickers)
-            }
-          },
+<title>[Your Name] - UX Portfolio</title>
+<style>
+body {
+  font-family: monospace; /* Or a similar plain font */
+  background-color: #f0f0f0;
+  margin: 2em;
+  line-height: 1.6;
+  color: #333;
+}
 
-        }
-      })
-    })
-    
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
 
-    </script>
+h2 {
+  font-size: 1.5em;
+  margin-top: 1em;
+}
+
+a {
+  color: #007bff; /* A simple blue link color */
+  text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.project {
+  margin-bottom: 2em;
+  border: 1px solid #ddd;
+  padding: 1em;
+  background-color: #fff;
+}
+
+.contact {
+    margin-top: 2em;
+    border-top: 1px solid #ddd;
+    padding-top: 1em;
+}
+
+
+/* Cool touch: subtle typewriter effect on hover */
+.project:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Add a subtle shadow on hover */
+}
+
+</style>
 </head>
+<body>
+
+<h1>[Your Name]</h1>
+<p>[Short Bio - One or two sentences]</p>
+
+
+<h2>Projects</h2>
+
+<div class="project">
+  <h3>[Project Title 1]</h3>
+  <p>[Brief description of Project 1.  Link to live site or case study if available.]  <a href="[link]">[Link]</a></p>
+</div>
+
+<div class="project">
+  <h3>[Project Title 2]</h3>
+  <p>[Brief description of Project 2. Link to live site or case study if available.] <a href="[link]">[Link]</a></p>
+</div>
+
+<!-- Add more project divs as needed -->
+
+
+<div class="contact">
+<h2>Contact</h2>
+<p>Email: <a href="mailto:[your_email]">[your_email]</a></p>
+<p>LinkedIn: <a href="[your_linkedin]">[your_linkedin]</a></p>
+</div>
+
+
+</body>
 </html>
