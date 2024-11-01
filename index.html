@@ -37,7 +37,7 @@
             transition: color 0.3s, background-color 0.3s;
         }
 
-        /* Theme toggle button */
+        /* Theme toggle */
         .theme-toggle {
             position: fixed;
             top: 20px;
@@ -49,13 +49,13 @@
             cursor: pointer;
             z-index: 100;
             padding: 8px;
-            transition: all 0.3s ease-out;
             width: 40px;
             height: 40px;
+            border-radius: 4px;
+            transition: all 0.3s ease-out;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px;
         }
 
         .theme-toggle:hover {
@@ -89,6 +89,16 @@
             font-family: system-ui, -apple-system, sans-serif;
         }
 
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin: 1.5em 0 1em;
+        }
+
         /* Links */
         a {
             color: var(--link-color);
@@ -114,9 +124,20 @@
             padding-left: 10px;
         }
 
+        .drawer-open .project h3 {
+            font-size: 1em;
+            margin: 0.5em 0;
+        }
+
         .date {
             color: var(--text-secondary);
             font-size: 0.9em;
+        }
+
+        /* Navigation */
+        nav {
+            margin: 2em 0;
+            color: var(--text-secondary);
         }
 
         /* Drawer */
@@ -137,7 +158,6 @@
             right: 0;
         }
 
-        /* Drawer close button */
         .drawer-close {
             position: fixed;
             top: 20px;
@@ -162,65 +182,7 @@
         }
 
         .drawer-close:hover {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        /* Desktop styles */
-        @media (min-width: 1024px) {
-            .main-content {
-                margin-right: 0;
-                margin-left: 40px;
-            }
-
-            .drawer-open .main-content {
-                max-width: 300px;
-            }
-
-            .drawer-open .project h3 {
-                font-size: 1em;
-                margin: 0.5em 0;
-            }
-
-            .drawer {
-                width: calc(100% - 380px);
-                border-left: 1px solid var(--border-color);
-                box-shadow: -4px 0 16px var(--drawer-shadow);
-            }
-
-            .drawer-open .theme-toggle {
-                right: calc(100% - 340px);
-            }
-        }
-
-        /* Mobile styles */
-        @media (max-width: 1023px) {
-            .drawer {
-                width: 100%;
-            }
-
-            .main-content {
-                margin: 40px auto;
-            }
-
-            .drawer-open .main-content {
-                filter: blur(2px);
-                pointer-events: none;
-            }
-
-            /* Mobile button positioning */
-            .drawer-open .theme-toggle {
-                right: auto;
-                left: 20px;
-            }
-
-            .drawer-close {
-                right: 20px;
-            }
-        }
-
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
+            background: var(--bg-secondary);
         }
 
         /* Case study styles */
@@ -256,6 +218,54 @@
             font-size: 0.9em;
             margin-top: 0.5em;
         }
+
+        /* Desktop styles */
+        @media (min-width: 1024px) {
+            .main-content {
+                margin-right: 0;
+                margin-left: 40px;
+            }
+
+            .drawer-open .main-content {
+                max-width: 300px;
+            }
+
+            .drawer {
+                width: calc(100% - 380px);
+                border-left: 1px solid var(--border-color);
+                box-shadow: -4px 0 16px var(--drawer-shadow);
+            }
+
+            .drawer-open .theme-toggle {
+                right: calc(100% - 340px);
+            }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 1023px) {
+            .drawer {
+                width: 100%;
+            }
+
+            .main-content {
+                margin: 40px auto;
+            }
+
+            .drawer-open .main-content {
+                filter: blur(2px);
+                pointer-events: none;
+            }
+
+            .drawer-open .theme-toggle {
+                right: auto;
+                left: 20px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
@@ -276,27 +286,7 @@
         <main>
             <section id="work">
                 <h2>Selected Work</h2>
-                
-                <div class="project">
-                    <h3>Design System Evolution</h3>
-                    <span class="date">2024</span>
-                    <p>Led the redesign and implementation of a comprehensive design system serving 20+ product teams.</p>
-                    <p>→ <a href="#" onclick="openCaseStudy('project1'); return false;">View Case Study</a></p>
-                </div>
-
-                <div class="project">
-                    <h3>Healthcare Portal Redesign</h3>
-                    <span class="date">2023</span>
-                    <p>Reimagined patient experience for a major healthcare provider.</p>
-                    <p>→ <a href="#" onclick="openCaseStudy('project2'); return false;">View Case Study</a></p>
-                </div>
-
-                <div class="project">
-                    <h3>E-commerce Platform</h3>
-                    <span class="date">2023</span>
-                    <p>Redesigned checkout flow increasing conversion by 25%.</p>
-                    <p>→ <a href="#" onclick="openCaseStudy('project3'); return false;">View Case Study</a></p>
-                </div>
+                <div id="project-list"></div>
             </section>
 
             <section id="about">
@@ -316,84 +306,65 @@
 
     <div class="drawer">
         <button class="drawer-close" onclick="closeDrawer()">×</button>
-        <div id="case-studies">
-            <article class="case-study" id="project1" style="display: none;">
-                <h1>Design System Evolution</h1>
-                <div class="metadata">
-                    <span>Role: Lead Designer</span>
-                    <span>Timeline: 8 months</span>
-                </div>
-                <section class="section">
-                    <h2>Overview</h2>
-                    <p>A complete overhaul of our design system to support rapid product development.</p>
-                    <div class="image-container">
-                        <img src="/api/placeholder/800/400" alt="Design system components">
-                        <p class="caption">Core component library evolution</p>
-                    </div>
-                </section>
-            </article>
-
-            <article class="case-study" id="project2" style="display: none;">
-                <h1>Healthcare Portal Redesign</h1>
-                <div class="metadata">
-                    <span>Role: UX Lead</span>
-                    <span>Timeline: 6 months</span>
-                </div>
-                <section class="section">
-                    <h2>Overview</h2>
-                    <p>Redesigned the patient portal experience to improve accessibility.</p>
-                </section>
-            </article>
-
-            <article class="case-study" id="project3" style="display: none;">
-                <h1>E-commerce Platform</h1>
-                <div class="metadata">
-                    <span>Role: UX Designer</span>
-                    <span>Timeline: 4 months</span>
-                </div>
-                <section class="section">
-                    <h2>Overview</h2>
-                    <p>Streamlined checkout process for better conversion.</p>
-                </section>
-            </article>
-        </div>
+        <div id="case-study-content"></div>
     </div>
 
     <script>
+        // Case studies data
+        const caseStudies = [
+            {
+                id: 'project1',
+                title: 'Design System Evolution',
+                year: '2024',
+                shortDescription: 'Led the redesign and implementation of a comprehensive design system serving 20+ product teams.',
+                role: 'Lead Designer',
+                timeline: '8 months',
+                overview: 'A complete overhaul of our design system to support rapid product development.',
+                challenge: 'Teams were struggling with inconsistent UI patterns, slow development cycles, and maintenance overhead.',
+                process: [
+                    'Conducted audit of existing components',
+                    'Interviewed 20+ developers and designers',
+                    'Created migration strategy'
+                ],
+                outcome: 'Reduced development time by 40% and increased consistency across products.',
+                images: [
+                    {
+                        src: '/api/placeholder/800/400',
+                        alt: 'Design system components',
+                        caption: 'Core component library evolution'
+                    }
+                ]
+            },
+            {
+                id: 'project2',
+                title: 'Healthcare Portal Redesign',
+                year: '2023',
+                shortDescription: 'Reimagined patient experience for a major healthcare provider.',
+                role: 'UX Lead',
+                timeline: '6 months',
+                overview: 'Redesigned the patient portal experience to improve accessibility.',
+                challenge: 'Patients struggled with complex medical information and appointment scheduling.',
+                process: [
+                    'User research with 50+ patients',
+                    'Journey mapping',
+                    'Iterative prototyping'
+                ],
+                outcome: '60% improvement in task completion rates',
+                images: [
+                    {
+                        src: '/api/placeholder/800/400',
+                        alt: 'Healthcare portal interface',
+                        caption: 'New patient dashboard design'
+                    }
+                ]
+            }
+        ];
+
+        // Utility Functions
         function scrollToSection(sectionId) {
             const element = document.getElementById(sectionId);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function openCaseStudy(projectId) {
-            const caseStudies = document.querySelectorAll('.case-study');
-            const project = document.getElementById(projectId);
-            const drawer = document.querySelector('.drawer');
-            const mainContent = document.querySelector('.main-content');
-            
-            if (caseStudies && project && drawer && mainContent) {
-                caseStudies.forEach(study => {
-                    study.style.display = 'none';
-                });
-                project.style.display = 'block';
-                drawer.classList.add('open');
-                document.body.classList.add('drawer-open');
-                
-                // Ensure the clicked project is visible in the navigation
-                const projectElement = document.querySelector(`[href="#"][onclick*="${projectId}"]`);
-                if (projectElement) {
-                    projectElement.parentElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        }
-
-        function closeDrawer() {
-            const drawer = document.querySelector('.drawer');
-            if (drawer) {
-                drawer.classList.remove('open');
-                document.body.classList.remove('drawer-open');
             }
         }
 
@@ -409,19 +380,90 @@
             }
         }
 
-        // Make functions globally available
-        window.scrollToSection = scrollToSection;
-        window.openCaseStudy = openCaseStudy;
-        window.closeDrawer = closeDrawer;
+        // Rendering Functions
+        function renderProjectList() {
+            const projectList = document.getElementById('project-list');
+            projectList.innerHTML = caseStudies.map(project => `
+                <div class="project">
+                    <h3>${project.title}</h3>
+                    <span class="date">${project.year}</span>
+                    <p>${project.shortDescription}</p>
+                    <p>→ <a href="#" onclick="openCaseStudy('${project.id}'); return false;">View Case Study</a></p>
+                </div>
+            `).join('');
+        }
 
-        // Wait for DOM to be loaded
+        function renderCaseStudy(id) {
+            const study = caseStudies.find(s => s.id === id);
+            const caseStudyContent = document.getElementById('case-study-content');
+            
+            if (!study) return;
+
+            caseStudyContent.innerHTML = `
+                <article class="case-study">
+                    <h1>${study.title}</h1>
+                    <div class="metadata">
+                        <span>Role: ${study.role}</span>
+                        <span>Timeline: ${study.timeline}</span>
+                        <span>Year: ${study.year}</span>
+                    </div>
+                    
+                    <section class="section">
+                        <h2>Overview</h2>
+                        <p>${study.overview}</p>
+                    </section>
+
+                    <section class="section">
+                        <h2>Challenge</h2>
+                        <p>${study.challenge}</p>
+                    </section>
+
+                    <section class="section">
+                        <h2>Process</h2>
+                        <ul>
+                            ${study.process.map(step => `<li>${step}</li>`).join('')}
+                        </ul>
+                    </section>
+
+                    <section class="section">
+                        <h2>Outcome</h2>
+                        <p>${study.outcome}</p>
+                    </section>
+
+                    ${study.images.map(img => `
+                        <div class="image-container">
+                            <img src="${img.src}" alt="${img.alt}">
+                            <p class="caption">${img.caption}</p>
+                        </div>
+                    `).join('')}
+                </article>
+            `;
+        }
+
+        // Drawer Functions
+        function openCaseStudy(projectId) {
+            renderCaseStudy(projectId);
+            document.querySelector('.drawer').classList.add('open');
+            document.body.classList.add('drawer-open');
+        }
+
+        function closeDrawer() {
+            document.querySelector('.drawer').classList.remove('open');
+            document.body.classList.remove('drawer-open');
+        }
+
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            // Render initial project list
+            renderProjectList();
+
+            // Set up theme toggle
             const themeToggle = document.querySelector('.theme-toggle');
             if (themeToggle) {
                 themeToggle.addEventListener('click', toggleTheme);
             }
 
-            // Add event listeners
+            // Event listeners
             document.addEventListener('keydown', function(event) {
                 if (event.key === 'Escape') {
                     closeDrawer();
@@ -442,6 +484,12 @@
                 themeToggle.innerHTML = theme === 'light' ? '☼' : '☾';
             }
         });
+
+        // Make functions globally available
+        window.scrollToSection = scrollToSection;
+        window.openCaseStudy = openCaseStudy;
+        window.closeDrawer = closeDrawer;
+        window.toggleTheme = toggleTheme;
     </script>
 </body>
 </html>
