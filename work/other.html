@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI-Native Design Tooling, Emre Caglar</title>
+  <meta name="description" content="Tools I built to close gaps in the AI-assisted design workflow: structured prototype feedback and agentic UX experimentation.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <nav id="nav" class="past-hero">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-name">← Back</a>
+      <span class="case-section-title" id="caseSectionTitle" aria-live="polite"><svg class="case-title-chevron" viewBox="0 0 32 32"><polygon points="16,22 6,12 7.4,10.6 16,19.2 24.6,10.6 26,12"/></svg></span>
+      <div class="case-toc" id="caseToc"></div>
+    </div>
+  </nav>
+
+
+  <div class="case-header">
+    <div class="container">
+
+      <h1 class="case-title">AI-Native Design Tooling</h1>
+
+      <p class="case-description">
+        Tools I built to close gaps in the AI-assisted design workflow.
+      </p>
+
+      <dl class="meta-table">
+        <div>
+          <dt>Role</dt>
+          <dd>Designer · Builder</dd>
+        </div>
+        <div>
+          <dt>Year</dt>
+          <dd>2025–present</dd>
+        </div>
+      </dl>
+
+    </div>
+  </div>
+
+
+  <main class="case-body">
+    <div class="container">
+
+
+      <section>
+        <h2>Lore</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 28px; margin-top: -12px;">Personal project · 2025–present · MCP · Cloudflare Workers · Prototype infrastructure</p>
+
+        <p>
+          When AI coding tools like Claude Code made it fast to build working prototypes, a new
+          friction appeared on the other end: collecting feedback on them. You'd ship to Vercel,
+          drop the link in Slack, and get responses scattered across threads, voice notes, and
+          screenshots. Nobody had the full picture. Nobody could easily act on it.
+        </p>
+        <p>
+          I built Lore to close that loop.
+        </p>
+      </section>
+
+
+      <figure>
+        <figcaption>Prototypes dashboard showing all registered prototypes across teams, with owners, comment counts, and last activity.</figcaption>
+        <img src="../assets/images/lore/Lore prototypes list.png" alt="Lore prototypes dashboard">
+      </figure>
+
+
+      <section>
+        <p>
+          Lore is an MCP server that adds a structured feedback layer to any deployed prototype.
+          When I push a prototype through Lore, Claude annotates each meaningful element with a
+          semantic name (<code style="font-family: monospace; font-size: 15px;">hero-section</code>,
+          <code style="font-family: monospace; font-size: 15px;">skip-button</code>,
+          <code style="font-family: monospace; font-size: 15px;">auth-form</code>). Comments from
+          reviewers attach to those names. When the prototype gets redesigned, comments follow the
+          element, not the layout. Nothing gets lost between iterations.
+        </p>
+        <p>
+          The second thing Lore does is write a semantic map alongside the prototype, a record of
+          what each element is <em>for</em>, captured at the moment the design decision is being
+          made. When a reviewer opens the prototype to comment, they see the intent behind what
+          they're looking at. When I come back to Claude later, it can read the full history of why
+          the prototype is the way it is and apply feedback with that context intact. Design
+          decisions that normally live in Slack threads or in someone's head get written down
+          automatically.
+        </p>
+      </section>
+
+
+      <figure class="figure--wide">
+        <figcaption>Semantic map: the blueprint sidebar captures design intent alongside the live prototype, visible to both reviewers and Claude.</figcaption>
+        <img src="../assets/images/lore/Lore blueprint.png" alt="Lore semantic map sidebar on a live prototype">
+      </figure>
+
+
+      <section>
+        <p>
+          Reviewers need no account and nothing installed. They open the URL, click into comment
+          mode, and leave feedback on the live page. The link is the tool.
+        </p>
+      </section>
+
+
+      <figure class="figure--split figure--split-stack figure--wide">
+        <figcaption>Feedback in context: in-page commenting on a live prototype, and the prototype detail view with multi-environment URLs and unified comment feed.</figcaption>
+        <div class="split-stack-group">
+          <p class="split-label">In-page comments</p>
+          <img src="../assets/images/lore/Lore comments in page.png" alt="Lore in-page commenting widget" style="--split-ratio: 16/9">
+        </div>
+        <div class="split-stack-group">
+          <p class="split-label">Prototype detail</p>
+          <img src="../assets/images/lore/Lore prototype dash.png" alt="Lore prototype detail with environments and comments" style="--split-ratio: 4/3">
+        </div>
+      </figure>
+
+
+      <section>
+        <h3>Workflow</h3>
+
+        <p><strong>1. Build</strong></p>
+        <p>
+          Tell Claude to build a prototype or push an existing one. Lore automatically captures
+          the semantic map, adds markup, and registers it.
+        </p>
+
+        <p><strong>2. Share</strong></p>
+        <p>
+          Get a tokenised review link per environment (local dev server, staging, production)
+          that reviewers can open without logging in.
+        </p>
+
+        <p><strong>3. Review</strong></p>
+        <p>
+          Fetch all comments grouped by screen, element, or flow. Comments from any environment
+          are unified in one feed.
+        </p>
+
+        <h3>Installation</h3>
+        <p>
+          One command installs Lore across all projects:
+        </p>
+        <pre style="font-family: monospace; font-size: 13px; line-height: 1.6; background: var(--surface); padding: 16px 20px; border-radius: 6px; overflow-x: auto; margin: 16px 0;"><code>claude mcp add lore -s user -- npx -y @emrecaglarid/lore-mcp</code></pre>
+        <p>
+          Restart Claude Code, and the Lore server appears in the MCP list. It works on any
+          deployment (Vercel, Netlify, GitHub Pages, localhost) with no opinions about how you
+          build or where you host.
+        </p>
+
+        <h3>Adoption</h3>
+        <p>
+          Two teams at Supermetrics are already using Lore in production: the Data Activation team
+          (for the stream creation and connector prototypes) and the Storage team (for Storage 2.0
+          stream editor). The dashboard shows real prototypes with active feedback loops across
+          multiple environments.
+        </p>
+        <p>
+          An unexpected benefit: Lore also helped designers who were new to AI-assisted prototyping
+          by collecting all their deployed prototypes, whether running on localhost or deployed to
+          staging and production, in a single dashboard. Instead of losing track of prototype URLs
+          across Vercel projects, local servers, and Slack threads, everything is registered and
+          accessible from one place.
+        </p>
+        <p>
+          I also built a macOS menu bar companion app that gives quick access to all registered
+          prototypes: open in Claude Code, start a local server, copy the share link, or check
+          new comments, all without leaving whatever you're working on.
+        </p>
+      </section>
+
+
+      <figure>
+        <figcaption>Mac menu bar app for quick access to prototypes, comments, and share links without leaving your workflow.</figcaption>
+        <img src="../assets/images/lore/Lore Mac App.png" alt="Lore macOS menu bar companion app">
+      </figure>
+
+
+      <section>
+        <p>
+          Lore is published as an MCP package on npm. The API runs on Cloudflare Workers. The goal
+          was infrastructure that disappears into the workflow, not another platform to manage.
+        </p>
+      </section>
+
+
+      <section>
+        <h2>Designer Mode for Agents</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 28px; margin-top: -12px;">Internal tool · 2025–present · React · LLM integration · Agentic UX</p>
+
+        <p>
+          At Supermetrics, we discuss agentic UX constantly: when should the agent act autonomously,
+          when should it ask, how cautious should it be, how verbose. But after those discussions,
+          most designers can't experiment with tangible artifacts. Designers are used to building and
+          testing, sketching, prototyping, iterating with real users. For agent behaviour, there's
+          no equivalent. The gap between "we should make the agent more cautious here" and actually
+          experiencing what that feels like in the product is too wide.
+        </p>
+        <p>
+          I built Designer Mode to close that gap. It's a sidebar panel embedded directly in the
+          product's frontend that exposes agent behaviour as a designable surface, the same way a
+          component library exposes visual properties.
+        </p>
+      </section>
+
+
+      <div class="media-showcase figure--wide">
+        <div class="media-showcase-tabs">
+          <button class="media-showcase-tab is-active" data-panel="0" data-caption="Designer Mode: recording of the agent sidebar embedded in the field mapper, running against the staging backend."><span class="media-showcase-num">00</span> Recording</button>
+          <button class="media-showcase-playpause media-showcase-action" aria-label="Play/Pause"><svg class="icon-play" viewBox="0 0 32 32"><path d="M7,28a1,1,0,0,1-1-1V5a1,1,0,0,1,1.4819-.8763l20,11a1,1,0,0,1,0,1.7525l-20,11A1.0005,1.0005,0,0,1,7,28ZM8,6.6909V25.3088L24.9248,16Z"/></svg><svg class="icon-pause" viewBox="0 0 32 32"><path d="M12,8V24H8V8h4m0-2H8A2,2,0,0,0,6,8V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/><path d="M24,8V24H20V8h4m0-2H20a2,2,0,0,0-2,2V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/></svg></button>
+          <button class="media-showcase-expand media-showcase-action" aria-label="Expand"><svg class="icon-maximize" viewBox="0 0 32 32"><polygon points="20 2 20 4 26.586 4 18 12.582 19.414 14 28 5.414 28 12 30 12 30 2 20 2"/><polygon points="14 19.416 12.592 18 4 26.586 4 20 2 20 2 30 12 30 12 28 5.414 28 14 19.416"/></svg><svg class="icon-minimize" viewBox="0 0 32 32" style="display:none"><polygon points="4 18 4 20 10.586 20 2 28.582 3.414 30 12 21.414 12 28 14 28 14 18 4 18"/><polygon points="30 3.416 28.592 2 20 10.586 20 4 18 4 18 14 28 14 28 12 21.414 12 30 3.416"/></svg></button>
+        </div>
+        <p class="media-showcase-caption">Designer Mode: recording of the agent sidebar embedded in the field mapper, running against the staging backend.</p>
+        <div class="media-showcase-frame">
+          <div class="media-showcase-panel is-active">
+            <video muted loop playsinline preload="metadata">
+              <source src="../assets/videos/agentdesigner.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+
+      <section>
+        <h3>How it works</h3>
+        <p>
+          Designers create custom agent variants, each with its own system prompt that defines the
+          agent's personality, caution level, verbosity, and action patterns. The prompt is editable
+          directly in the sidebar, or the tool can automatically adjust it based on the designer's
+          feedback, iterating toward the right behaviour without requiring prompt engineering
+          expertise.
+        </p>
+        <p>
+          The Compare tab runs the same user input against multiple variants simultaneously, showing
+          how each one responds side by side. A "fast" variant that acts without asking, a "careful"
+          variant that confirms every step, a "technical" variant that uses domain jargon. Designers
+          can see the difference immediately and decide which behaviour fits the context.
+        </p>
+        <p>
+          Everything runs against the actual staging backend through a proxy. The agent reads real
+          data, proposes real actions, and surfaces real consequences. When a variant is validated,
+          the prompt exports as a markdown file, ready to hand off to development. The prompt
+          becomes a design deliverable, not just a prototype artifact.
+        </p>
+      </section>
+
+
+      <figure class="figure--split figure--wide">
+        <figcaption>Designer Mode: the Prompt tab for editing agent behaviour, and the Compare tab for evaluating variants side by side.</figcaption>
+        <div class="split-grid" style="--split-ratio: 9/16; --img-pos: top center">
+          <p class="split-label">Prompt editor</p>
+          <p class="split-label">Variant comparison</p>
+          <img src="../assets/images/designer mode for agents/Screenshot 2026-05-17 at 23.17.11.png" alt="Designer Mode, prompt editor">
+          <img src="../assets/images/designer mode for agents/Screenshot 2026-05-17 at 23.18.01.png" alt="Designer Mode, variant comparison">
+        </div>
+      </figure>
+
+
+      <section>
+        <h3>Why it matters</h3>
+        <p>
+          Designers can now craft agentic UX the same way they craft any other interaction: by
+          building variants, comparing alternatives, and testing with real users. They can share
+          specific agent variants with consultants or customers to gather insights on which behaviour
+          feels right for different use cases.
+        </p>
+        <p>
+          The tool also helps teams converge. After a discussion about how an agent should handle
+          a risky action, a designer can build two variants in ten minutes and test them against
+          real data. A concrete comparison replaces opinion. That changes the quality of the
+          conversation.
+        </p>
+      </section>
+
+
+    </div>
+  </main>
+
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Emre Caglar</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── Case study: section title in nav + TOC ─────────────────────────
+    const caseTitleEl = document.getElementById('caseSectionTitle');
+    const caseToc = document.getElementById('caseToc');
+    if (caseTitleEl && caseToc) {
+      const caseHeadings = Array.from(
+        document.querySelectorAll('.case-body h2')
+      );
+
+      caseHeadings.forEach(h => {
+        if (!h.id) h.id = h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const link = document.createElement('a');
+        link.href = '#' + h.id;
+        link.textContent = h.textContent.trim().replace(/\s*\(.*?\)\s*/g, '').trim();
+        caseToc.appendChild(link);
+      });
+
+      let activeHeading = null;
+      const chevronSvg = caseTitleEl.querySelector('.case-title-chevron');
+
+      function updateCaseTitle() {
+        const navH = document.getElementById('nav').offsetHeight;
+        let active = null;
+        for (const h of caseHeadings) {
+          if (h.getBoundingClientRect().top < navH + 8) active = h;
+        }
+        if (active) {
+          if (active !== activeHeading) {
+            activeHeading = active;
+            caseTitleEl.textContent = active.textContent.trim()
+              .replace(/\s*\(.*?\)\s*/g, '').trim();
+            caseTitleEl.appendChild(chevronSvg);
+            caseToc.querySelectorAll('a').forEach(a => {
+              a.classList.toggle('is-current', a.getAttribute('href') === '#' + active.id);
+            });
+          }
+          caseTitleEl.classList.add('visible');
+        } else {
+          caseTitleEl.classList.remove('visible');
+          activeHeading = null;
+        }
+      }
+
+      caseTitleEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        caseToc.classList.toggle('is-open');
+        caseTitleEl.classList.toggle('toc-open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!caseToc.contains(e.target) && !caseTitleEl.contains(e.target)) {
+          caseToc.classList.remove('is-open');
+          caseTitleEl.classList.remove('toc-open');
+        }
+      });
+
+      caseToc.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+          e.preventDefault();
+          const target = document.querySelector(e.target.getAttribute('href'));
+          if (target) {
+            const navH = document.getElementById('nav').offsetHeight;
+            window.scrollTo({ top: target.offsetTop - navH - 8, behavior: 'smooth' });
+          }
+          caseToc.classList.remove('is-open');
+          caseTitleEl.classList.remove('toc-open');
+        }
+      });
+
+      window.addEventListener('scroll', () => {
+        updateCaseTitle();
+        if (caseToc.classList.contains('is-open')) {
+          caseToc.classList.remove('is-open');
+          caseTitleEl.classList.remove('toc-open');
+        }
+      }, { passive: true });
+
+      updateCaseTitle();
+    }
+
+    // ── Media showcase: tab switching + play/pause + expand ───────────────
+    document.querySelectorAll('.media-showcase').forEach(showcase => {
+      const tabs = showcase.querySelectorAll('.media-showcase-tab');
+      const panels = showcase.querySelectorAll('.media-showcase-panel');
+      const captionEl = showcase.querySelector('.media-showcase-caption');
+      const expandBtn = showcase.querySelector('.media-showcase-expand');
+      const playPauseBtn = showcase.querySelector('.media-showcase-playpause');
+      const video = showcase.querySelector('video');
+      let scrollY = 0;
+
+      function getActiveVideo() {
+        return showcase.querySelector('.media-showcase-panel.is-active video');
+      }
+
+      function updateControls() {
+        const hasVideo = !!getActiveVideo();
+        if (playPauseBtn) playPauseBtn.classList.toggle('is-visible', hasVideo);
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const idx = +tab.dataset.panel;
+          tabs.forEach(t => t.classList.remove('is-active'));
+          panels.forEach(p => p.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          panels[idx].classList.add('is-active');
+          if (captionEl && tab.dataset.caption) captionEl.textContent = tab.dataset.caption;
+          updateControls();
+          if (video) {
+            if (panels[idx].contains(video)) video.play();
+            else video.pause();
+          }
+        });
+      });
+
+      updateControls();
+
+      if (playPauseBtn && video) {
+        playPauseBtn.addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+            playPauseBtn.classList.add('is-playing');
+          } else {
+            video.pause();
+            playPauseBtn.classList.remove('is-playing');
+          }
+        });
+      }
+
+      if (video) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            const activeVideo = getActiveVideo();
+            if (!activeVideo) return;
+            if (entry.isIntersecting) {
+              activeVideo.play();
+              if (playPauseBtn) playPauseBtn.classList.add('is-playing');
+            } else {
+              activeVideo.pause();
+              if (playPauseBtn) playPauseBtn.classList.remove('is-playing');
+            }
+          });
+        }, { threshold: 0.3 });
+        observer.observe(showcase);
+      }
+
+      if (expandBtn) {
+        expandBtn.addEventListener('click', () => {
+          if (showcase.classList.contains('is-expanded')) {
+            showcase.classList.remove('is-expanded');
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', onEscape);
+            window.scrollTo(0, scrollY);
+            if (expandBtn) {
+              expandBtn.querySelector('.icon-maximize').style.display = '';
+              expandBtn.querySelector('.icon-minimize').style.display = 'none';
+            }
+          } else {
+            scrollY = window.scrollY;
+            showcase.classList.add('is-expanded');
+            document.body.style.overflow = 'hidden';
+            document.addEventListener('keydown', onEscape);
+            if (expandBtn) {
+              expandBtn.querySelector('.icon-maximize').style.display = 'none';
+              expandBtn.querySelector('.icon-minimize').style.display = '';
+            }
+          }
+        });
+      }
+
+      function onEscape(e) {
+        if (e.key === 'Escape') {
+          showcase.classList.remove('is-expanded');
+          document.body.style.overflow = '';
+          document.removeEventListener('keydown', onEscape);
+          window.scrollTo(0, scrollY);
+          if (expandBtn) {
+            expandBtn.querySelector('.icon-maximize').style.display = '';
+            expandBtn.querySelector('.icon-minimize').style.display = 'none';
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

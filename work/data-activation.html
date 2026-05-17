@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Data Activation, Emre Caglar</title>
+  <meta name="description" content="Case study: Data Activation. Designing the integration layer after a major acquisition at Supermetrics.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <nav id="nav" class="past-hero">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-name">← Back</a>
+      <span class="case-section-title" id="caseSectionTitle" aria-live="polite"><svg class="case-title-chevron" viewBox="0 0 32 32"><polygon points="16,22 6,12 7.4,10.6 16,19.2 24.6,10.6 26,12"/></svg></span>
+      <div class="case-toc" id="caseToc"></div>
+    </div>
+  </nav>
+
+
+  <div class="case-header">
+    <div class="container">
+
+      <h1 class="case-title">Data Activation</h1>
+
+      <p class="case-description">
+        Designing the integration layer after a major acquisition, aligning two product teams
+        and shipping a unified experience at scale.
+      </p>
+
+      <dl class="meta-table">
+        <div>
+          <dt>Role</dt>
+          <dd>Principal Designer</dd>
+        </div>
+        <div>
+          <dt>Year</dt>
+          <dd>2025–present</dd>
+        </div>
+        <div>
+          <dt>Scope</dt>
+          <dd>Post-acquisition integration · CDP design</dd>
+        </div>
+        <div>
+          <dt>Company</dt>
+          <dd>Supermetrics</dd>
+        </div>
+      </dl>
+
+    </div>
+  </div>
+
+
+  <main class="case-body">
+    <div class="container">
+
+      <section>
+        <p>
+          In 2025, Supermetrics acquired Relay42, a Customer Data Platform used by enterprise brands
+          to collect profile and behavioural data, build audiences, orchestrate customer journeys,
+          and activate campaigns across ad platforms. The technology was strong. The business model
+          wasn't where Supermetrics needed it to be.
+        </p>
+        <p>
+          Relay42 had built its customer base on a service model: a small number of large enterprise           accounts, each onboarded and managed by consultants. The platform assumed expert operators.
+          Configuration required specialist knowledge. There was no meaningful self-serve path. For a
+          company whose strategic direction was moving up-market while expanding self-serve reach,
+          this was the central problem.
+        </p>
+        <p>
+          I moved to the Data Activation team in August 2025 as the principal designer, and effectively
+          the first Supermetrics designer ever embedded in the acquired product. I came in knowing the
+          Hub well but no longer responsible for it, knowing nothing about CDPs, and tasked with
+          integrating the two.
+        </p>
+      </section>
+
+
+      <section>
+        <h2>Context</h2>
+
+        <h3>The situation I walked into</h3>
+        <p>
+          The Relay42 platform had its own design language, its own information architecture, its own
+          mental models. It looked and felt like a different product, because it was one. There was no
+          Supermetrics design system adoption, no alignment with Hub patterns, no shared component
+          library. The two platforms existed independently, connected only by brand.
+        </p>
+        <p>
+          The immediate problem this created was practical: customers who used both Supermetrics and
+          Relay42 had to context-switch between two entirely different experiences. But the deeper
+          problem was strategic. If Data Activation was going to be a self-serve product, if a
+          marketing team with no data engineer and no consultant was going to use it, it needed to
+          feel learnable. The current product, to put it plainly, did not.
+        </p>
+
+        <h3>The domain challenge</h3>
+        <p>
+          CDPs are not a natural extension of marketing analytics tools. The underlying concepts:
+          profile resolution, event ingestion, facts and engagements, audience segmentation, journey
+          orchestration. All new territory for most Supermetrics users, and new territory for me.
+        </p>
+        <p>
+          I spent the first weeks in the product, in the Relay42 team's documentation, in calls with
+          consultants who ran implementations, and in the code. Understanding what "a stream" meant
+          technically, how profile data was structured, what made an audience definition valid or
+          invalid, this had to come before any design decisions.
+        </p>
+        <p>
+          One framing that helped: the product wasn't just an activation tool, it was a layer on top
+          of customer data that let teams use that data in different ways, for analysis, for targeting,
+          for automation. Getting the conceptual model right was a prerequisite for getting the UX right.
+        </p>
+
+        <h3>Who we're designing for</h3>
+        <p>
+          Early in the project I mapped the user landscape with the Relay42 product team.
+          The result was a unified archetype matrix: three personas crossed with three
+          engagement models. It shaped every subsequent design decision: which workflows
+          to simplify first, where a consultant's institutional knowledge needed to become
+          in-product guidance, and what "self-serve" actually means for different users.
+        </p>
+      </section>
+
+
+      <div class="media-showcase figure--wide">
+        <div class="media-showcase-tabs">
+          <button class="media-showcase-tab is-active" data-panel="0" data-caption="Three personas × three engagement models. The Self-Serve column defines the design target."><span class="media-showcase-num">00</span> Archetype matrix</button>
+          <button class="media-showcase-tab" data-panel="1" data-caption="User journey map: merging Relay42 activation flows with Supermetrics platform journeys."><span class="media-showcase-num">01</span> User journeys</button>
+          <button class="media-showcase-tab" data-panel="2" data-caption="Key findings from consultant and customer interviews: insights, challenges, opportunities, and design drivers."><span class="media-showcase-num">02</span> Research insights</button>
+          <button class="media-showcase-expand media-showcase-action" aria-label="Expand"><svg class="icon-maximize" viewBox="0 0 32 32"><polygon points="20 2 20 4 26.586 4 18 12.582 19.414 14 28 5.414 28 12 30 12 30 2 20 2"/><polygon points="14 19.416 12.592 18 4 26.586 4 20 2 20 2 30 12 30 12 28 5.414 28 14 19.416"/></svg><svg class="icon-minimize" viewBox="0 0 32 32" style="display:none"><polygon points="4 18 4 20 10.586 20 2 28.582 3.414 30 12 21.414 12 28 14 28 14 18 4 18"/><polygon points="30 3.416 28.592 2 20 10.586 20 4 18 4 18 14 28 14 28 12 21.414 12 30 3.416"/></svg></button>
+        </div>
+        <p class="media-showcase-caption">Three personas × three engagement models. The Self-Serve column defines the design target.</p>
+        <div class="media-showcase-frame">
+          <div class="media-showcase-panel is-active">
+            <div class="archetype-table-wrap" id="archetypeTableWrap">
+              <table class="archetype-table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Active / Hands-On</th>
+                    <th>Passive / Service-Led</th>
+                    <th>Self-Serve <span class="at-future">(Future)</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>Practitioner</th>
+                    <td>
+                      <p><span class="at-label">Behavior</span> In the tool daily. Technically proficient, explores features proactively.</p>
+                      <p><span class="at-label">Needs</span> Working core UX, efficiency, contextual help.</p>
+                      <p><span class="at-label">JTBD</span> "Help me work faster and implement better campaigns."</p>
+                      <p><span class="at-label">Pain points</span> Slow workflows for repeating tasks. Needing to wait for consultant validation on complex ideas.</p>
+                    </td>
+                    <td class="at-na">
+                      <p>Our consultant is the primary hands-on user in this model. The client's practitioner has minimal to no direct platform engagement.</p>
+                    </td>
+                    <td>
+                      <p><span class="at-label">Behavior</span> Eager to learn but time-poor. A marketing generalist, not a specialist.</p>
+                      <p><span class="at-label">Needs</span> Guided workflows, in-app validation, easy reporting tools.</p>
+                      <p><span class="at-label">JTBD</span> "Help me launch effective campaigns quickly and prove their value to my boss."</p>
+                      <p><span class="at-label">Pain points</span> Fear of making a mistake, technical setup, not knowing where to start.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Manager</th>
+                    <td>
+                      <p><span class="at-label">Behavior</span> Dips in to view dashboards. Works closely with practitioners and consultants.</p>
+                      <p><span class="at-label">Needs</span> High-level dashboards, performance trends, insights to guide team strategy.</p>
+                      <p><span class="at-label">JTBD</span> "Give me the data I need to make smart strategic decisions."</p>
+                      <p><span class="at-label">Pain points</span> Hard to explore further detail; difficulty connecting platform activities to team KPIs.</p>
+                    </td>
+                    <td>
+                      <p><span class="at-label">Behavior</span> Main point of contact for our consultant. Rarely logs in.</p>
+                      <p><span class="at-label">Needs</span> Executive summaries, compelling success stories for internal meetings.</p>
+                      <p><span class="at-label">JTBD</span> "Deliver the results we agreed upon and give me the materials I need to report success upwards."</p>
+                      <p><span class="at-label">Pain points</span> Lack of direct visibility; reliance on consultant reports.</p>
+                    </td>
+                    <td>
+                      <p><span class="at-label">Behavior</span> Self-serves reports and dashboards to check team progress.</p>
+                      <p><span class="at-label">Needs</span> Simple, intuitive, shareable reporting that demonstrates ROI.</p>
+                      <p><span class="at-label">JTBD</span> "Let me quickly see if our investment is paying off and how my team is performing."</p>
+                      <p><span class="at-label">Pain points</span> Reports that are hard to configure or understand without expert help.</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>C-Level</th>
+                    <td>
+                      <p><span class="at-label">Behavior</span> No direct product engagement. May see high-level dashboards presented by their team.</p>
+                      <p><span class="at-label">Needs</span> Clear connection between the platform and core business KPIs.</p>
+                      <p><span class="at-label">JTBD</span> "Justify the ongoing investment in this platform."</p>
+                      <p><span class="at-label">Pain points</span> Reports that don't speak the language of business (revenue, customer lifetime value).</p>
+                    </td>
+                    <td>
+                      <p><span class="at-label">Behavior</span> Engages during contract renewal or quarterly business reviews.</p>
+                      <p><span class="at-label">Needs</span> Confidence that the strategic partnership is delivering significant value.</p>
+                      <p><span class="at-label">JTBD</span> "Confirm that this strategic partnership is a wise use of company resources."</p>
+                      <p><span class="at-label">Pain points</span> A relationship that feels purely tactical rather than strategic.</p>
+                    </td>
+                    <td>
+                      <p><span class="at-label">Behavior</span> Reviews summary reports from their manager.</p>
+                      <p><span class="at-label">Needs</span> To see that the team is becoming more effective and efficient through the tool.</p>
+                      <p><span class="at-label">JTBD</span> "Show me that this tool is a force multiplier for my marketing team."</p>
+                      <p><span class="at-label">Pain points</span> The tool's value is unclear or not easily quantifiable.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="media-showcase-panel">
+            <img src="../assets/images/data-activation/R42 User Journeys.png" alt="User journey map: merging activation with Supermetrics flows">
+          </div>
+          <div class="media-showcase-panel">
+            <div class="research-insights">
+
+              <h4 class="insights-section">Key Insights</h4>
+              <div class="insights-grid">
+                <div class="insights-card"><strong>Consultant is the product</strong> Current value and stickiness are deeply tied to consultant guidance, trust, and problem-solving, especially in the Passive model.</div>
+                <div class="insights-card"><strong>Pain before features</strong> Successful engagements start by identifying a core business pain and framing the solution around it.</div>
+                <div class="insights-card"><strong>Proof of success</strong> From Practitioner to Manager, a core motivation is generating success stories to demonstrate their competence internally.</div>
+                <div class="insights-card"><strong>Passive user blind spot</strong> Passive clients don't ask for features because they don't own the strategy.</div>
+                <div class="insights-card"><strong>Data ingestion black box</strong> Not self-serve, no visibility on status or errors, erodes customer trust.</div>
+                <div class="insights-card"><strong>Complexity as blocker</strong> Product perceived as too complicated, especially during setup demos.</div>
+              </div>
+
+              <h4 class="insights-section">Key Challenges</h4>
+              <div class="insights-grid">
+                <div class="insights-card"><strong>Productize the consultant</strong> Translate embodied consultant expertise (guidance, validation) into in-app experience for self-serve users.</div>
+                <div class="insights-card"><strong>Done-for-you → done-by-you</strong> Motivate users to become hands-on without overwhelming them. Surface the next valuable task.</div>
+                <div class="insights-card"><strong>Mostly automated setup</strong> Make data integration seamless without the consultant's silent fixes.</div>
+                <div class="insights-card"><strong>Solve the black box</strong> Create a self-serve, transparent, trustworthy data ingestion and monitoring experience.</div>
+                <div class="insights-card"><strong>Tame complexity</strong> Radically simplify journey orchestration and tagging for non-technical marketers.</div>
+              </div>
+
+              <h4 class="insights-section">UX Opportunities</h4>
+              <div class="insights-grid">
+                <div class="insights-card"><strong>Guided mastery</strong> Templates, playbooks, proactive suggestions that make the Empowered Practitioner feel capable from day one.</div>
+                <div class="insights-card"><strong>First-win onboarding</strong> Get users a tangible result fast, one basic journey with limited data, to demonstrate value they can share upward.</div>
+                <div class="insights-card"><strong>Self-service ecosystem</strong> Contextual in-app help, clear terminology, documentation, video guides. Resourceful, not abandoned.</div>
+                <div class="insights-card"><strong>Agency expansion</strong> Purpose-built UX: multi-client switching, permission management, cross-account reporting at scale.</div>
+              </div>
+
+              <h4 class="insights-section">Design Drivers</h4>
+              <div class="insights-grid">
+                <div class="insights-card"><strong>First-session result</strong> Onboarding asks for the primary business pain, guides to a pre-built playbook. Not a feature tour, a tangible outcome.</div>
+                <div class="insights-card"><strong>Empower with context</strong> Validation cues and guardrails at every step. Selections from options, never manual inputs. AI suggestions. Inline component creation.</div>
+                <div class="insights-card"><strong>Data as narrative</strong> Sources and features presented as parts of the marketing journey. Outcomes shareable as dashboards for manager personas.</div>
+                <div class="insights-card"><strong>Complexity is opt-in</strong> Abstract technical details, focus on marketing outcomes. No coding for basic flows. Graceful, human-readable errors.</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <section>
+        <h2>Visual Integration</h2>
+        <p>
+          The first structural intervention was applying Supermetrics' Metri design system to the
+          rebuilt V2 pages of the Activation Hub. This wasn't purely cosmetic. Common components
+          (navigation, tables, form patterns, modals, error states) now behave consistently with the
+          Hub. A user who knows how to use Supermetrics has a recognisable framework when they enter
+          the activation platform.
+        </p>
+        <p>
+          The remaining pages in the product are iframed from the legacy system. The design work is
+          ongoing; each page rebuilt in V2 closes that gap.
+        </p>
+      </section>
+
+
+      <figure class="figure--split figure--wide">
+        <figcaption>Navigation: legacy Relay42 sidebar vs. Metri-aligned navigation.</figcaption>
+        <div class="split-grid" style="--split-ratio: 1/2">
+          <p class="split-label">Before</p>
+          <p class="split-label">After</p>
+          <img src="../assets/images/data-activation/dashboard-veryold.png" alt="Navigation, before">
+          <img src="../assets/images/data-activation/navigation-new.png" alt="Navigation, after">
+        </div>
+      </figure>
+
+
+      <figure class="figure--split figure--split-stack figure--wide">
+        <figcaption>Login: legacy design vs. Supermetrics design system.</figcaption>
+        <div class="split-stack-group">
+          <p class="split-label">Before</p>
+          <img src="../assets/images/data-activation/login-old.png" alt="Login, before" style="--split-ratio: 4/3; --img-pos: center">
+        </div>
+        <div class="split-stack-group">
+          <p class="split-label">After</p>
+          <img src="../assets/images/data-activation/login-new.png" alt="Login, after" style="--split-ratio: 4/3; --img-pos: center">
+        </div>
+      </figure>
+
+
+      <section>
+        <h2>Orchestration</h2>
+        <p>
+          The Activation Hub combined journeys and audiences on a single page with poor space
+          efficiency. Asset lists were hard to scan, actions were buried, and the page tried to
+          serve too many contexts at once. I proposed a new information architecture with separate
+          focused pages, and customisable, info-dense tables built on the Metri design system.
+        </p>
+        <p>
+          The work split into two parallel tracks. The design system track delivered the new table
+          component. I built coded prototypes with multiple variants covering sorting, filtering,
+          pagination, empty states, error states, and loading behaviour, which were then integrated
+          into Metri with a minor refactor. The IA track proposed separate pages for journeys and
+          audiences, each with purpose-built views.
+        </p>
+        <p>
+          I proposed a middle phase so the design system work and IA work could proceed in parallel.
+          The table redesign shipped first on the existing unified page, while the page separation
+          followed. This allowed us to move faster: the team wasn't blocked waiting for the full
+          IA change before seeing improved tables in production.
+        </p>
+        <p>
+          Released to Beta in January 2026, initially to the activation consultancy team, IG Group,
+          and Vattenfall.
+        </p>
+      </section>
+
+
+
+      <figure class="figure--split figure--split-stack figure--wide">
+        <figcaption>Journeys list: legacy view vs. redesigned table with new design system.</figcaption>
+        <div class="split-stack-group">
+          <p class="split-label">Before</p>
+          <img src="../assets/images/data-activation/journeys-old.png" alt="Journeys list, before" style="--split-ratio: 16/9">
+        </div>
+        <div class="split-stack-group">
+          <p class="split-label">After</p>
+          <img src="../assets/images/data-activation/journeys-new.png" alt="Journeys list, after" style="--split-ratio: 16/9">
+        </div>
+      </figure>
+
+
+      <figure class="figure--wide">
+        <img src="../assets/images/data-activation/journeys-new-action-menu.png" alt="Unified page with new table design">
+        <figcaption>Middle phase: new table design applied to the existing unified journeys and audiences page, decoupling the design system work from the IA restructure.</figcaption>
+      </figure>
+
+
+      <section>
+        <h3>Table system</h3>
+        <p>
+          Tables are the most-used component in the Activation Hub: journey lists, audience lists,
+          activity logs, connector status, and data previews all use the same table primitive. The
+          redesign unified these under a single table system built on Metri, covering sorting, filtering,
+          pagination, inline actions, empty states, error states, and loading behaviour.
+        </p>
+      </section>
+
+
+      <div class="media-showcase figure--wide">
+        <div class="media-showcase-tabs">
+          <button class="media-showcase-tab is-active" data-panel="0" data-proto-url="https://embed.figma.com/proto/T6sviAqMyZoF9aBh6Q0Ug6/Tables?node-id=1-30580&viewport=170%2C121%2C0.53&scaling=contain&content-scaling=responsive&starting-point-node-id=1%3A30580&page-id=0%3A1&embed-host=share" data-caption="Table system: Figma exploration of unified table variants across the Activation Hub."><span class="media-showcase-num">00</span> Exploration</button>
+          <button class="media-showcase-tab" data-panel="1" data-proto-url="https://frost-radar-56024856.figma.site" data-caption="Interactive prototype: table variants, error states, and loading time simulation."><span class="media-showcase-num">01</span> Coded prototype</button>
+          <button class="media-showcase-playpause media-showcase-action" aria-label="Play/Pause"><svg class="icon-play" viewBox="0 0 32 32"><path d="M7,28a1,1,0,0,1-1-1V5a1,1,0,0,1,1.4819-.8763l20,11a1,1,0,0,1,0,1.7525l-20,11A1.0005,1.0005,0,0,1,7,28ZM8,6.6909V25.3088L24.9248,16Z"/></svg><svg class="icon-pause" viewBox="0 0 32 32"><path d="M12,8V24H8V8h4m0-2H8A2,2,0,0,0,6,8V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/><path d="M24,8V24H20V8h4m0-2H20a2,2,0,0,0-2,2V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/></svg></button>
+          <button class="media-showcase-back media-showcase-action" aria-label="Back"><svg viewBox="0 0 32 32"><polygon points="14 26 15.41 24.59 7.83 17 28 17 28 15 7.83 15 15.41 7.41 14 6 4 16 14 26"/></svg></button>
+          <button class="media-showcase-reload media-showcase-action" aria-label="Reload"><svg viewBox="0 0 32 32"><path d="M26,18A10,10,0,1,1,16,8h6.1821l-3.5844,3.5854L20,13l6-6L20,1,18.5977,2.414,22.1851,6H16A12,12,0,1,0,28,18Z"/></svg></button>
+          <button class="media-showcase-expand media-showcase-action" aria-label="Expand"><svg class="icon-maximize" viewBox="0 0 32 32"><polygon points="20 2 20 4 26.586 4 18 12.582 19.414 14 28 5.414 28 12 30 12 30 2 20 2"/><polygon points="14 19.416 12.592 18 4 26.586 4 20 2 20 2 30 12 30 12 28 5.414 28 14 19.416"/></svg><svg class="icon-minimize" viewBox="0 0 32 32" style="display:none"><polygon points="4 18 4 20 10.586 20 2 28.582 3.414 30 12 21.414 12 28 14 28 14 18 4 18"/><polygon points="30 3.416 28.592 2 20 10.586 20 4 18 4 18 14 28 14 28 12 21.414 12 30 3.416"/></svg></button>
+        </div>
+        <p class="media-showcase-caption">Table system: Figma exploration of unified table variants across the Activation Hub.</p>
+        <div class="media-showcase-frame">
+          <div class="media-showcase-panel is-active">
+            <iframe src="https://embed.figma.com/proto/T6sviAqMyZoF9aBh6Q0Ug6/Tables?node-id=1-30580&viewport=170%2C121%2C0.53&scaling=contain&content-scaling=responsive&starting-point-node-id=1%3A30580&page-id=0%3A1&embed-host=share" allowfullscreen></iframe>
+          </div>
+          <div class="media-showcase-panel">
+            <iframe sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+          </div>
+        </div>
+        <a href="https://frost-radar-56024856.figma.site" target="_blank" rel="noopener" class="media-showcase-mobile-link">Open prototype →</a>
+      </div>
+
+
+      <section>
+        <h2>Journey Builder</h2>
+        <p>
+          The old journey builder was a visual canvas that worked well conceptually, but it was
+          custom-built, janky, and not very discoverable, with many icon buttons without explanation,
+          inconsistent interaction patterns, and a codebase that was difficult to extend.
+        </p>
+        <p>
+          I took a pragmatic approach: rather than rebuilding the canvas from scratch, I convinced
+          the team to adopt ReactFlow, a mature open-source library. We evaluated it together with
+          the developers and I built a UX prototype using actual ReactFlow components connected to
+          the same backend, so the transition from prototype to production could be smooth.
+        </p>
+        <p>
+          The new ReactFlow canvas was implemented in less than two weeks. The previous custom
+          canvas had taken more than four months to finalise. The prototype I built served as the
+          direct specification. Developers could inspect the component structure, interaction
+          patterns, and data flow rather than translating static designs.
+        </p>
+      </section>
+
+
+      <div class="media-showcase figure--wide">
+        <div class="media-showcase-tabs">
+          <button class="media-showcase-tab is-active" data-panel="0" data-caption="Legacy journey canvas: custom-built, icon-heavy, limited discoverability."><span class="media-showcase-num">00</span> Before</button>
+          <button class="media-showcase-tab" data-panel="1" data-caption="Redesigned canvas using ReactFlow: cleaner layout, discoverable actions, extensible component architecture."><span class="media-showcase-num">01</span> After</button>
+          <button class="media-showcase-tab" data-panel="2" data-proto-url="https://activation-journey-reactflow-wbma.vercel.app/" data-caption="Interactive prototype: build and connect journey nodes on a live ReactFlow canvas."><span class="media-showcase-num">02</span> Coded prototype</button>
+          <button class="media-showcase-playpause media-showcase-action" aria-label="Play/Pause"><svg class="icon-play" viewBox="0 0 32 32"><path d="M7,28a1,1,0,0,1-1-1V5a1,1,0,0,1,1.4819-.8763l20,11a1,1,0,0,1,0,1.7525l-20,11A1.0005,1.0005,0,0,1,7,28ZM8,6.6909V25.3088L24.9248,16Z"/></svg><svg class="icon-pause" viewBox="0 0 32 32"><path d="M12,8V24H8V8h4m0-2H8A2,2,0,0,0,6,8V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/><path d="M24,8V24H20V8h4m0-2H20a2,2,0,0,0-2,2V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/></svg></button>
+          <button class="media-showcase-back media-showcase-action" aria-label="Back"><svg viewBox="0 0 32 32"><polygon points="14 26 15.41 24.59 7.83 17 28 17 28 15 7.83 15 15.41 7.41 14 6 4 16 14 26"/></svg></button>
+          <button class="media-showcase-reload media-showcase-action" aria-label="Reload"><svg viewBox="0 0 32 32"><path d="M26,18A10,10,0,1,1,16,8h6.1821l-3.5844,3.5854L20,13l6-6L20,1,18.5977,2.414,22.1851,6H16A12,12,0,1,0,28,18Z"/></svg></button>
+          <button class="media-showcase-expand media-showcase-action" aria-label="Expand"><svg class="icon-maximize" viewBox="0 0 32 32"><polygon points="20 2 20 4 26.586 4 18 12.582 19.414 14 28 5.414 28 12 30 12 30 2 20 2"/><polygon points="14 19.416 12.592 18 4 26.586 4 20 2 20 2 30 12 30 12 28 5.414 28 14 19.416"/></svg><svg class="icon-minimize" viewBox="0 0 32 32" style="display:none"><polygon points="4 18 4 20 10.586 20 2 28.582 3.414 30 12 21.414 12 28 14 28 14 18 4 18"/><polygon points="30 3.416 28.592 2 20 10.586 20 4 18 4 18 14 28 14 28 12 21.414 12 30 3.416"/></svg></button>
+        </div>
+        <p class="media-showcase-caption">Legacy journey canvas: custom-built, icon-heavy, limited discoverability.</p>
+        <div class="media-showcase-frame">
+          <div class="media-showcase-panel is-active">
+            <img src="../assets/images/data-activation/journey-builder-old.png" alt="Journey builder, before">
+          </div>
+          <div class="media-showcase-panel">
+            <img src="../assets/images/data-activation/journey-builder-new.png" alt="Journey builder, after">
+          </div>
+          <div class="media-showcase-panel">
+            <iframe sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+          </div>
+        </div>
+        <a href="https://activation-journey-reactflow-wbma.vercel.app/" target="_blank" rel="noopener" class="media-showcase-mobile-link">Open prototype →</a>
+      </div>
+
+
+      <section>
+        <h2>Audience Builder</h2>
+        <p>
+          Audience definition in a CDP is not intuitive for most marketers. The combinations of profile
+          attributes and behavioural events, entry and exit conditions, which data to trust. These are
+          decisions that had previously required a consultant to translate between the customer's intent
+          and the platform's logic.
+        </p>
+        <p>
+          I built the coded prototype to accept different sets of customer data from various verticals
+          (airlines, hospitality, insurance) in JSON format, so during testing consultants could load
+          their own datasets and see how the interface handled their actual day-to-day cases. I ran
+          research sessions with five consultants (Aliina, Marion, Richard, Willem, and Valter,
+          VP Product) using this prototype. Two things were immediately clear: what worked and
+          what didn't.
+        </p>
+      </section>
+
+
+      <figure class="figure--split figure--split-stack figure--wide">
+        <figcaption>Audience builder: current state vs. first redesign iteration.</figcaption>
+        <div class="split-stack-group">
+          <p class="split-label">Before</p>
+          <img src="../assets/images/data-activation/audience-builder-current.png" alt="Audience builder, current state" style="--split-ratio: 4/3">
+        </div>
+        <div class="split-stack-group">
+          <p class="split-label">After</p>
+          <img src="../assets/images/data-activation/audience-builder-r1.png" alt="Audience builder, first redesign" style="--split-ratio: 4/3">
+        </div>
+      </figure>
+
+
+      <section>
+        <p>
+          The left-side library and live readout were universally praised. Dragging data points directly
+          from the panel into the rule builder felt natural; watching the profile count update instantly
+          as rules were added made the impact of each condition legible in a way the old interface never
+          had. Everyone wanted more of it.
+        </p>
+
+        <blockquote>
+          <p>"I'm loving this. I could cry because of this."</p>
+          <cite>Aliina Neep, activation consultant, research session October 2025</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>"That's a massive improvement over a two-click calculation. It's a dynamic number."</p>
+          <cite>Richard Hamlyn, activation consultant, research session October 2025</cite>
+        </blockquote>
+
+        <p>
+          The central editor was the opposite: no clear hierarchy, no way to understand what was
+          happening at a glance. The consultants confirmed it in practice. They could state what they
+          wanted in plain language ("everyone who opened a cart in the last 30 days but didn't
+          purchase") but couldn't reliably navigate the rule structure without hand-holding. The AND/OR
+          switching was invisible. Negating a rule was invisible. The mechanism for checking the impact
+          of a single rule was invisible. The information was there; nothing about the layout told you
+          where to look.
+        </p>
+
+        <blockquote>
+          <p>"I have no idea what is happening here and what the hierarchy is honestly... this is quite messy."</p>
+          <cite>Valter Andersson (VP Product), audience builder research session, October 2025</cite>
+        </blockquote>
+
+        <p>
+          The redesign introduced a three-panel layout (Library, Define, and Overview) replacing the
+          modal-driven configuration with a persistent workspace. The Library panel makes customer
+          profile data browsable and searchable: Facts and Engagements organised into meaningful
+          categories rather than hidden behind configuration modals. The Define area uses collapsible
+          sections with clear visual grouping, prominent AND/OR controls, and explicit entry and exit
+          condition separation. The Overview panel shows a live profile readout as a first-class
+          element rather than a two-click calculation. A clear Audience → Goals → Sync → Analyze
+          navigation gives new users a step-by-step mental model of the workflow, replacing the flat
+          interface where the process wasn't visible.
+        </p>
+      </section>
+
+
+      <div class="media-showcase figure--wide">
+        <div class="media-showcase-tabs">
+          <button class="media-showcase-tab is-active" data-panel="0" data-caption="Audience builder redesign: collapsible rule groups, live profile readout, prominent AND/OR controls."><span class="media-showcase-num">00</span> Recording</button>
+          <button class="media-showcase-tab" data-panel="1" data-proto-url="https://audience-builder-nov25.vercel.app/" data-caption="Interactive prototype: live profile counts update as you build rules against the real data schema."><span class="media-showcase-num">01</span> Coded prototype</button>
+          <button class="media-showcase-playpause media-showcase-action" aria-label="Play/Pause"><svg class="icon-play" viewBox="0 0 32 32"><path d="M7,28a1,1,0,0,1-1-1V5a1,1,0,0,1,1.4819-.8763l20,11a1,1,0,0,1,0,1.7525l-20,11A1.0005,1.0005,0,0,1,7,28ZM8,6.6909V25.3088L24.9248,16Z"/></svg><svg class="icon-pause" viewBox="0 0 32 32"><path d="M12,8V24H8V8h4m0-2H8A2,2,0,0,0,6,8V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/><path d="M24,8V24H20V8h4m0-2H20a2,2,0,0,0-2,2V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/></svg></button>
+          <button class="media-showcase-back media-showcase-action" aria-label="Back"><svg viewBox="0 0 32 32"><polygon points="14 26 15.41 24.59 7.83 17 28 17 28 15 7.83 15 15.41 7.41 14 6 4 16 14 26"/></svg></button>
+          <button class="media-showcase-reload media-showcase-action" aria-label="Reload"><svg viewBox="0 0 32 32"><path d="M26,18A10,10,0,1,1,16,8h6.1821l-3.5844,3.5854L20,13l6-6L20,1,18.5977,2.414,22.1851,6H16A12,12,0,1,0,28,18Z"/></svg></button>
+          <button class="media-showcase-expand media-showcase-action" aria-label="Expand"><svg class="icon-maximize" viewBox="0 0 32 32"><polygon points="20 2 20 4 26.586 4 18 12.582 19.414 14 28 5.414 28 12 30 12 30 2 20 2"/><polygon points="14 19.416 12.592 18 4 26.586 4 20 2 20 2 30 12 30 12 28 5.414 28 14 19.416"/></svg><svg class="icon-minimize" viewBox="0 0 32 32" style="display:none"><polygon points="4 18 4 20 10.586 20 2 28.582 3.414 30 12 21.414 12 28 14 28 14 18 4 18"/><polygon points="30 3.416 28.592 2 20 10.586 20 4 18 4 18 14 28 14 28 12 21.414 12 30 3.416"/></svg></button>
+        </div>
+        <p class="media-showcase-caption">Audience builder redesign: collapsible rule groups, live profile readout, prominent AND/OR controls.</p>
+        <div class="media-showcase-frame">
+          <div class="media-showcase-panel is-active">
+            <video muted loop playsinline preload="metadata">
+              <source src="../assets/videos/audience-builder-general.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="media-showcase-panel">
+            <iframe sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+          </div>
+        </div>
+        <a href="https://audience-builder-nov25.vercel.app/" target="_blank" rel="noopener" class="media-showcase-mobile-link">Open prototype →</a>
+      </div>
+
+
+      <section>
+        <p>
+          Two things the redesign made prominent. First, data discoverability: customer profile data
+          is the platform's most valuable asset, and the Library panel now surfaces it as a browsable,
+          searchable catalogue organised by Facts (demographics, account attributes) and Engagements
+          (purchases, page views, email interactions), rather than requiring users to know field names
+          in advance. Second, the proposed Audience → Goals → Sync → Analyze flow makes each step in
+          the audience lifecycle explicit and navigable, especially for new users who previously had
+          no visibility into what came after defining entry criteria.
+        </p>
+        <p>
+          The research also surfaced how consultants actually use the product after publishing.
+          The primary workflow isn't building new audiences. It's Monitor, Duplicate, Troubleshoot:
+          diagnosing why an audience shrank, cloning it to test a hypothesis, checking what's being
+          sent to connectors. That shaped how the view mode is being designed, as a troubleshooting
+          interface first, not a summary screen.
+        </p>
+        <p>
+          Early customer response has been positive. After a direction review with IG Group, our CSM
+          Vera Oliveira noted that the customer was happy with where we were heading, and called out
+          the new audience builder as an important milestone for that relationship.
+        </p>
+
+        <h3>Agentic workflow</h3>
+        <p>
+          The search box in the Audience Builder side panel behaves differently depending on the input.
+          When a user searches for a data field that exists exactly, it surfaces it. When no exact match
+          is found, the interface automatically switches from keyword search mode to a prompt mode,
+          showing an AI input that can interpret natural language queries against the field library.
+        </p>
+        <p>
+          No toggle, no mode switch, no explanation needed. The model is: if the structured path doesn't
+          work, the conversational path appears. The transition is invisible because the user's intent
+          didn't change.
+        </p>
+      </section>
+
+
+      <div class="media-showcase figure--wide">
+        <div class="media-showcase-tabs">
+          <button class="media-showcase-tab is-active" data-panel="0" data-caption="Audience agent: AI-assisted rule building with natural language queries against the field library."><span class="media-showcase-num">00</span> Recording</button>
+          <button class="media-showcase-playpause media-showcase-action" aria-label="Play/Pause"><svg class="icon-play" viewBox="0 0 32 32"><path d="M7,28a1,1,0,0,1-1-1V5a1,1,0,0,1,1.4819-.8763l20,11a1,1,0,0,1,0,1.7525l-20,11A1.0005,1.0005,0,0,1,7,28ZM8,6.6909V25.3088L24.9248,16Z"/></svg><svg class="icon-pause" viewBox="0 0 32 32"><path d="M12,8V24H8V8h4m0-2H8A2,2,0,0,0,6,8V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/><path d="M24,8V24H20V8h4m0-2H20a2,2,0,0,0-2,2V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/></svg></button>
+          <button class="media-showcase-expand media-showcase-action" aria-label="Expand"><svg class="icon-maximize" viewBox="0 0 32 32"><polygon points="20 2 20 4 26.586 4 18 12.582 19.414 14 28 5.414 28 12 30 12 30 2 20 2"/><polygon points="14 19.416 12.592 18 4 26.586 4 20 2 20 2 30 12 30 12 28 5.414 28 14 19.416"/></svg><svg class="icon-minimize" viewBox="0 0 32 32" style="display:none"><polygon points="4 18 4 20 10.586 20 2 28.582 3.414 30 12 21.414 12 28 14 28 14 18 4 18"/><polygon points="30 3.416 28.592 2 20 10.586 20 4 18 4 18 14 28 14 28 12 21.414 12 30 3.416"/></svg></button>
+        </div>
+        <p class="media-showcase-caption">Audience agent: AI-assisted rule building with natural language queries against the field library.</p>
+        <div class="media-showcase-frame">
+          <div class="media-showcase-panel is-active">
+            <video muted loop playsinline preload="metadata">
+              <source src="../assets/videos/audience-agent.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+
+      <section>
+        <h2>Self-serve data ingestion</h2>
+        <p>
+          The hardest design problem on the roadmap: how does a Supermetrics customer get their data
+          into the Data Activation platform without a consultant?
+        </p>
+        <p>
+          The architectural decision, settled after significant cross-team debate, was a push model
+          using Supermetrics' existing DWH transfer infrastructure, with a new UI layer inside the Hub
+          to configure the stream. I designed the flow for this: a tab-separated layout under the Data
+          Storage page that cleanly separates analytics and activation namespaces without creating a
+          new product surface. The design deliberately reuses Storage components to reduce build time
+          and maintain interface consistency.
+        </p>
+        <p>
+        <h3>Field mapper:  human in the loop</h3>
+        <p>
+          Schema mapping, matching columns from a customer's source data to the activation platform's
+          profile schema, is where most non-technical users stall. The field mapper includes an AI
+          integration that suggests matches based on field names and types.
+        </p>
+        <p>
+          The design choice here was deliberate: the agent proposes, the user confirms. Each suggestion
+          is displayed individually in-line with the field row, accepted or rejected one at a time, not
+          applied in bulk. Schema decisions are hard to reverse once data is flowing; the friction is
+          the point.
+        </p>
+        <p>
+          The prototype is built directly on the product codebase using a local development environment,
+          proxied to the staging backend, so it uses real data and real API responses, not mocks. I
+          also set up a local LLM server to prototype the agentic workflow: the AI agent in the field
+          mapper works and interacts with the actual product, suggesting field mappings against live
+          schema data.
+        </p>
+        <p>
+          The field mapper is now released as a Beta. The full self-serve ingestion path (source
+          selection, authentication, field mapping to the activation schema, stream monitoring) is
+          being built against these designs.
+        </p>
+      </section>
+
+
+      <div class="media-showcase figure--wide">
+        <div class="media-showcase-tabs">
+          <button class="media-showcase-tab is-active" data-panel="0" data-caption="Field mapper: AI-suggested field mappings against a live staging environment with real customer data."><span class="media-showcase-num">00</span> Recording</button>
+          <button class="media-showcase-playpause media-showcase-action" aria-label="Play/Pause"><svg class="icon-play" viewBox="0 0 32 32"><path d="M7,28a1,1,0,0,1-1-1V5a1,1,0,0,1,1.4819-.8763l20,11a1,1,0,0,1,0,1.7525l-20,11A1.0005,1.0005,0,0,1,7,28ZM8,6.6909V25.3088L24.9248,16Z"/></svg><svg class="icon-pause" viewBox="0 0 32 32"><path d="M12,8V24H8V8h4m0-2H8A2,2,0,0,0,6,8V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/><path d="M24,8V24H20V8h4m0-2H20a2,2,0,0,0-2,2V24a2,2,0,0,0,2,2h4a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2Z"/></svg></button>
+          <button class="media-showcase-back media-showcase-action" aria-label="Back"><svg viewBox="0 0 32 32"><polygon points="14 26 15.41 24.59 7.83 17 28 17 28 15 7.83 15 15.41 7.41 14 6 4 16 14 26"/></svg></button>
+          <button class="media-showcase-reload media-showcase-action" aria-label="Reload"><svg viewBox="0 0 32 32"><path d="M26,18A10,10,0,1,1,16,8h6.1821l-3.5844,3.5854L20,13l6-6L20,1,18.5977,2.414,22.1851,6H16A12,12,0,1,0,28,18Z"/></svg></button>
+          <button class="media-showcase-expand media-showcase-action" aria-label="Expand"><svg class="icon-maximize" viewBox="0 0 32 32"><polygon points="20 2 20 4 26.586 4 18 12.582 19.414 14 28 5.414 28 12 30 12 30 2 20 2"/><polygon points="14 19.416 12.592 18 4 26.586 4 20 2 20 2 30 12 30 12 28 5.414 28 14 19.416"/></svg><svg class="icon-minimize" viewBox="0 0 32 32" style="display:none"><polygon points="4 18 4 20 10.586 20 2 28.582 3.414 30 12 21.414 12 28 14 28 14 18 4 18"/><polygon points="30 3.416 28.592 2 20 10.586 20 4 18 4 18 14 28 14 28 12 21.414 12 30 3.416"/></svg></button>
+        </div>
+        <p class="media-showcase-caption">Field mapper: AI-suggested field mappings against a live staging environment with real customer data.</p>
+        <div class="media-showcase-frame">
+          <div class="media-showcase-panel is-active">
+            <video muted loop playsinline preload="metadata">
+              <source src="../assets/videos/field-mapper.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <section>
+        <h2>Beyond the Product</h2>
+
+        <h3>DesignOps and team building</h3>
+        <p>
+          In January 2026, I hired Siobhan Herne as Senior Product Designer on the Data Activation
+          team, the first designer based in our Amsterdam office, where most of the Relay42 engineering
+          and product team is located. Data Activation design had been a single-person effort across
+          two platforms in two offices. Adding a designer embedded with the Amsterdam team removed a
+          real distance penalty on feedback loops, prototyping speed, and relationship-building with the
+          engineers who had built the original product.
+        </p>
+        <p>
+          To get her productive quickly, I built a Claude Code template that packages the full Metri
+          design system library (components, tokens, usage patterns) as a starting context for any
+          design session. A designer opening a new session already has the component constraints, naming
+          conventions, and relevant prior decisions available without re-establishing them each time.
+          Siobhan could start working on the connector setup flow with the same design system context
+          I'd been building up over months, from day one.
+        </p>
+
+        <h3>Contributing to product strategy</h3>
+        <p>
+          The self-serve goal required more than a UX redesign. The product had been conceived as a
+          monolith: you either had Data Activation or you didn't. That model doesn't work for
+          self-serve at scale.
+        </p>
+        <p>
+          In a DM exchange with Valter Andersson (VP Product), I mapped out a tiered capability model:
+        </p>
+
+        <blockquote>
+          <p>
+            "What I can see is that we take various assets out of R42's engine after the setup, rather
+            than treating journey and activation as the main goals. A customer can have audiences in
+            their plan, which means we let them explore customer profiles, build audiences and use them
+            as dimensions in SM to refine their analysis, or stream them to ad platforms. Likewise with
+            events. Then you have the main activation tier that enables journey orchestration. These can
+            be separately monetized or tied in packs, a small e-commerce pack with predefined journeys
+            for cart abandonment, etc."
+          </p>
+          <cite>Emre Caglar, DM to Valter Andersson (VP Product)</cite>
+        </blockquote>
+
+        <p>
+          This framing (audiences and events as standalone value, journeys as the premium tier)
+          has since shaped how the product's packaging and self-serve path is being thought about.
+        </p>
+
+        <h3>Early signal</h3>
+        <p>
+          The Beta release went to IG Group and Vattenfall as the first external customers. A validation
+          session with IG produced the following assessment:
+        </p>
+
+        <blockquote>
+          <p>
+            "The new setup makes audience creation significantly simpler. [...] The data model is more
+            intuitive and cleaner."
+          </p>
+          <cite>Customer feedback shared by Vera Oliveira, #tmp-r42-ig-opportunity-bq, March 2026</cite>
+        </blockquote>
+
+        <p>
+          Initial validation showed a 98% match rate between the Data Activation platform and the
+          customer's own BigQuery, closing the data integrity gap that had been a concern during
+          onboarding.
+        </p>
+      </section>
+
+
+      <section>
+        <h2>Reflections</h2>
+        <p>
+          This is a case study in progress. The self-serve goal isn't achieved yet, the ingestion flow
+          is still being built, the Stream Editor Beta hasn't reached GA, and the audience and journey
+          builder designs are still being iterated.
+        </p>
+
+        <div class="case-highlight">
+          <p>
+            What I can point to is the direction set and the distance covered. When I joined, Data
+            Activation was an acquired product with a different visual language, no Hub integration,
+            no duplication capability, no self-serve entry point, and no Supermetrics designer. The
+            V2 Activation Hub is in Beta. The Hub entry point exists. The data bridge is being built.
+            The team has a second designer.
+          </p>
+        </div>
+
+        <p>
+          The customer landscape for Data Activation is different from anything else in this portfolio:
+          very large accounts, long sales cycles, high stakes configurations. That changes what "good
+          design" means. Speed and intuitiveness matter, but so does the confidence a consultant has
+          when running a live demo, and the trust a brand puts in a platform managing their customer
+          journey data. Those are the things the design work is trying to earn.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Emre Caglar</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── Case study: section title in nav + TOC ─────────────────────────
+    const caseTitleEl = document.getElementById('caseSectionTitle');
+    const caseToc = document.getElementById('caseToc');
+    if (caseTitleEl && caseToc) {
+      const caseHeadings = Array.from(
+        document.querySelectorAll('.case-body h2')
+      );
+
+      caseHeadings.forEach(h => {
+        if (!h.id) h.id = h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const link = document.createElement('a');
+        link.href = '#' + h.id;
+        link.textContent = h.textContent.trim().replace(/\s*\(.*?\)\s*/g, '').trim();
+        caseToc.appendChild(link);
+      });
+
+      let activeHeading = null;
+      const chevronSvg = caseTitleEl.querySelector('.case-title-chevron');
+
+      function updateCaseTitle() {
+        const navH = document.getElementById('nav').offsetHeight;
+        let active = null;
+        for (const h of caseHeadings) {
+          if (h.getBoundingClientRect().top < navH + 8) active = h;
+        }
+        if (active) {
+          if (active !== activeHeading) {
+            activeHeading = active;
+            caseTitleEl.textContent = active.textContent.trim()
+              .replace(/\s*\(.*?\)\s*/g, '').trim();
+            caseTitleEl.appendChild(chevronSvg);
+            caseToc.querySelectorAll('a').forEach(a => {
+              a.classList.toggle('is-current', a.getAttribute('href') === '#' + active.id);
+            });
+          }
+          caseTitleEl.classList.add('visible');
+        } else {
+          caseTitleEl.classList.remove('visible');
+          activeHeading = null;
+        }
+      }
+
+      caseTitleEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        caseToc.classList.toggle('is-open');
+        caseTitleEl.classList.toggle('toc-open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!caseToc.contains(e.target) && !caseTitleEl.contains(e.target)) {
+          caseToc.classList.remove('is-open');
+          caseTitleEl.classList.remove('toc-open');
+        }
+      });
+
+      caseToc.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+          e.preventDefault();
+          const target = document.querySelector(e.target.getAttribute('href'));
+          if (target) {
+            const navH = document.getElementById('nav').offsetHeight;
+            window.scrollTo({ top: target.offsetTop - navH - 8, behavior: 'smooth' });
+          }
+          caseToc.classList.remove('is-open');
+          caseTitleEl.classList.remove('toc-open');
+        }
+      });
+
+      window.addEventListener('scroll', () => {
+        updateCaseTitle();
+        if (caseToc.classList.contains('is-open')) {
+          caseToc.classList.remove('is-open');
+          caseTitleEl.classList.remove('toc-open');
+        }
+      }, { passive: true });
+
+      updateCaseTitle();
+    }
+
+    // ── Archetype table expand ─────────────────────────────────────────────
+    const archetypeWrap = document.getElementById('archetypeTableWrap');
+    const archetypeBtn  = document.getElementById('archetypeExpandBtn');
+    if (archetypeBtn) {
+      archetypeBtn.addEventListener('click', () => {
+        archetypeWrap.classList.remove('is-collapsed');
+        archetypeBtn.setAttribute('aria-expanded', 'true');
+      });
+    }
+
+    // ── Journeys exploration expand ────────────────────────────────────────
+    const journeysFig = document.getElementById('journeysExplorationFig');
+    const journeysBtn = document.getElementById('journeysExpandBtn');
+    if (journeysBtn) {
+      journeysBtn.addEventListener('click', () => {
+        journeysFig.classList.add('is-expanded');
+        journeysBtn.setAttribute('aria-expanded', 'true');
+      });
+    }
+
+    // ── Media showcase: tab switching + expand/reload ───────────────────
+    document.querySelectorAll('.media-showcase').forEach(showcase => {
+      const tabs = showcase.querySelectorAll('.media-showcase-tab');
+      const panels = showcase.querySelectorAll('.media-showcase-panel');
+      const captionEl = showcase.querySelector('.media-showcase-caption');
+      const expandBtn = showcase.querySelector('.media-showcase-expand');
+      const backBtn = showcase.querySelector('.media-showcase-back');
+      const reloadBtn = showcase.querySelector('.media-showcase-reload');
+      const playPauseBtn = showcase.querySelector('.media-showcase-playpause');
+      const video = showcase.querySelector('video');
+      let scrollY = 0;
+
+      function getActiveIframe() {
+        const active = showcase.querySelector('.media-showcase-panel.is-active iframe');
+        return active && active.src ? active : null;
+      }
+
+      function getActiveVideo() {
+        return showcase.querySelector('.media-showcase-panel.is-active video');
+      }
+
+      function updateControls() {
+        const activeTab = showcase.querySelector('.media-showcase-tab.is-active');
+        const hasProto = !!(activeTab && activeTab.dataset.protoUrl);
+        const hasVideo = !!getActiveVideo();
+
+        if (reloadBtn) reloadBtn.classList.toggle('is-visible', hasProto);
+        if (backBtn) backBtn.classList.toggle('is-visible', hasProto);
+        if (playPauseBtn) playPauseBtn.classList.toggle('is-visible', hasVideo);
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const idx = +tab.dataset.panel;
+          const protoUrl = tab.dataset.protoUrl;
+
+          tabs.forEach(t => t.classList.remove('is-active'));
+          panels.forEach(p => p.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          panels[idx].classList.add('is-active');
+
+          if (protoUrl) {
+            const iframe = panels[idx].querySelector('iframe');
+            if (iframe && !iframe.src) iframe.src = protoUrl;
+          }
+
+          if (captionEl && tab.dataset.caption) {
+            captionEl.textContent = tab.dataset.caption;
+          }
+
+          updateControls();
+
+          if (video) {
+            if (panels[idx].contains(video)) video.play();
+            else video.pause();
+          }
+        });
+      });
+
+      updateControls();
+
+      if (playPauseBtn && video) {
+        playPauseBtn.addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+            playPauseBtn.classList.add('is-playing');
+          } else {
+            video.pause();
+            playPauseBtn.classList.remove('is-playing');
+          }
+        });
+      }
+
+      if (video) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            const activeVideo = getActiveVideo();
+            if (!activeVideo) return;
+            if (entry.isIntersecting) {
+              activeVideo.play();
+              if (playPauseBtn) playPauseBtn.classList.add('is-playing');
+            } else {
+              activeVideo.pause();
+              if (playPauseBtn) playPauseBtn.classList.remove('is-playing');
+            }
+          });
+        }, { threshold: 0.3 });
+        observer.observe(showcase);
+      }
+
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          const tab = showcase.querySelector('.media-showcase-tab.is-active');
+          const protoUrl = tab && tab.dataset.protoUrl;
+          const iframe = getActiveIframe();
+          if (iframe && protoUrl) iframe.src = protoUrl;
+        });
+      }
+
+      if (reloadBtn) {
+        reloadBtn.addEventListener('click', () => {
+          const iframe = getActiveIframe();
+          if (iframe) iframe.src = iframe.src;
+        });
+      }
+
+      if (expandBtn) {
+        expandBtn.addEventListener('click', () => {
+          if (showcase.classList.contains('is-expanded')) {
+            collapse();
+          } else {
+            expand();
+          }
+        });
+      }
+
+      function expand() {
+        scrollY = window.scrollY;
+        showcase.classList.add('is-expanded');
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', onEscape);
+        if (expandBtn) {
+          expandBtn.querySelector('.icon-maximize').style.display = 'none';
+          expandBtn.querySelector('.icon-minimize').style.display = '';
+        }
+      }
+
+      function collapse() {
+        showcase.classList.remove('is-expanded');
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', onEscape);
+        window.scrollTo(0, scrollY);
+        if (expandBtn) {
+          expandBtn.querySelector('.icon-maximize').style.display = '';
+          expandBtn.querySelector('.icon-minimize').style.display = 'none';
+        }
+      }
+
+      function onEscape(e) {
+        if (e.key === 'Escape') collapse();
+      }
+    });
+  </script>
+</body>
+</html>
