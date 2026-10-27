@@ -8,8 +8,8 @@
   <title>Emre Caglar</title>
   <meta name="description" content="Introduction and selected work of Emre Caglar, product designer">
 
-  <meta property="og:title" content="Emre Caglar, Principal Designer">
-  <meta property="og:description" content="Principal Product Designer at Supermetrics.">
+  <meta property="og:title" content="Emre Caglar, Product Designer">
+  <meta property="og:description" content="Product designer at n8n, working on AI trust and agentic automation.">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,11 @@
     <div class="nav-inner">
       <!-- EDIT: Your name, hidden on hero, fades in as you scroll -->
       <a href="#snap-hero" class="nav-name">Emre Caglar</a>
+      <div class="nav-links" aria-label="Sections">
+        <a href="#snap-about" data-group="about">About</a>
+        <a href="#snap-side" data-group="side">Side projects</a>
+        <a href="#snap-work" data-group="work">Work</a>
+      </div>
     </div>
   </nav>
 
@@ -51,7 +56,7 @@
         <!-- EDIT: One sentence that captures what you do and care about -->
         <p class="hero-tagline">
           I help build B2B experiences <span id="heroSwap">for</span><span class="hero-cursor">|</span>humans and agents.
-          Currently a principal product designer at <a href="https://www.supermetrics.com" class="hero-link">Supermetrics</a>.
+          Currently doing product design at <a href="https://n8n.io" class="hero-link">n8n</a>.
         </p>
       </div>
     </section>
@@ -69,19 +74,21 @@
           <div class="about-content">
             <div class="about-bio">
               <p>
-                I've spent the last decade designing enterprise products, most of it at Supermetrics,
-                where I joined as the second designer and now work as a principal IC, leading and
-                coaching two designers on the company's most complex product surface while staying
-                close to the work myself. For much of that time, I worked on complex data
-                workflows for marketers and analysts at scale. Now my focus is agentic UX: how
-                people delegate to, collaborate with, and build trust in AI agents.
+                I'm a product designer at n8n, working on how people come to trust AI agents.
+                That means making agent evaluations something anyone can run, not just ML
+                engineers, and designing how people stay in control of agents that automate work
+                across the tools they use.
               </p>
               <p>
-                My background is in industrial design research. My PhD was on design fiction, I built
-                a world-building toolkit for foresight exercises about disruptive technologies, imagining
-                systems under pressure to understand them better, and completed the research as a
-                visiting researcher at Aalto University. That discipline still shapes how I think about
-                complex product problems.
+                Before n8n, I spent five years designing enterprise products at Supermetrics.
+                I joined as the second designer and grew into a principal IC, leading and coaching
+                designers on the company's most complex product surface and designing data
+                workflows for marketers and analysts at scale.
+              </p>
+              <p>
+                My background is in design research. I completed a PhD on design fiction, exploring
+                how narrative theory applies to world-building in real design processes, and continued
+                at Aalto University as a visiting researcher.
               </p>
               <p>Based in Helsinki.</p>
             </div>
@@ -98,16 +105,52 @@
     </section>
 
 
+    <!-- ══ SIDE PROJECTS ══ -->
+    <!-- One slide per project, laid out like the work slides. Number the eyebrow: 01, 02… -->
+    <section class="snap-section snap-side" id="snap-side">
+      <div class="fp-project">
+
+        <div class="fp-text">
+          <p class="fp-eyebrow">01 · Side projects</p>
+          <h2 class="fp-title">
+            <a href="https://github.com/emrecaglarid/nanopress" target="_blank" rel="noopener">nanopress</a>
+          </h2>
+          <p class="fp-teaser">
+            A tiling window manager for the rest of us. It keeps your Mac's windows in order with
+            no shortcuts to learn: drag a window onto a clear target, or arrange them all from a
+            minimap in the menu bar.
+          </p>
+          <div class="side-install">
+            <code>brew install --cask emrecaglarid/tap/nanopress</code>
+            <button type="button" class="side-copy" data-copy="brew install --cask emrecaglarid/tap/nanopress" aria-label="Copy the install command">Copy</button>
+          </div>
+          <a href="https://github.com/emrecaglarid/nanopress" class="fp-link" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+
+        <div class="fp-image fp-image--video">
+          <video autoplay muted loop playsinline preload="metadata"
+                 poster="assets/images/nanopress-poster.jpg"
+                 aria-label="A tour of nanopress: dragging windows into place, stack tabs, the menu bar minimap, auto-arrange, and spacing and background settings">
+            <source src="assets/videos/nanopress/tour.mp4" type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </section>
+
+
     <!-- ══ SLIDE 3: PASSWORD GATE ══ -->
     <section class="snap-section snap-password" id="snap-password">
-      <div class="container">
-        <p class="password-eyebrow">Selected Work</p>
-        <p class="password-prompt">Enter the password to<br>view case studies.</p>
-        <form class="password-form" id="passwordForm" autocomplete="off">
-          <input type="password" id="passwordInput" placeholder="Password" autocomplete="current-password" spellcheck="false">
-          <button type="submit" aria-label="Submit">→</button>
-        </form>
-        <p class="password-error" id="passwordError">Incorrect password.</p>
+      <div class="fp-project">
+        <div class="fp-text">
+          <h2 class="fp-title">Selected work</h2>
+          <p class="fp-teaser">The case studies are behind a password. Enter it to read them.</p>
+          <form class="password-form" id="passwordForm" autocomplete="off">
+            <input type="password" id="passwordInput" placeholder="Password" aria-label="Password" autocomplete="current-password" spellcheck="false">
+            <button type="submit" aria-label="Submit">→</button>
+          </form>
+          <p class="password-error" id="passwordError" role="status">Incorrect password.</p>
+        </div>
       </div>
     </section>
 
@@ -119,8 +162,7 @@
 
         <!-- Text: left on desktop, below image on mobile -->
         <div class="fp-text">
-          <!-- EDIT: "01, Selected Work" stays on project 1. Change label on 02, 03, etc. -->
-          <p class="fp-eyebrow">01 · Selected Work</p>
+          <p class="fp-eyebrow">01</p>
           <h2 class="fp-title">
             <a href="work/data-activation.html">Data Activation</a>
           </h2>
@@ -235,46 +277,6 @@
   </div><!-- /scroll-container -->
 
 
-  <!-- ─────────────────────────────────────── -->
-  <!--  DOT NAVIGATION, desktop only         -->
-  <!-- ─────────────────────────────────────── -->
-  <!-- If you add/remove project slides, add/remove a <button> here too -->
-  <!-- If you add/remove project slides, add/remove a middle <button class="dot"> -->
-  <nav class="dot-nav" id="dotNav" aria-label="Section navigation">
-
-    <!-- Home -->
-    <button class="dot dot-icon" aria-label="Intro">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-        <path d="M6.5 1.5L12 6.5V12H8.5V9H4.5V12H1V6.5L6.5 1.5Z"
-              stroke="currentColor" stroke-width="1.2"
-              stroke-linejoin="round" stroke-linecap="round"/>
-      </svg>
-    </button>
-
-    <!-- About -->
-    <button class="dot dot-icon" aria-label="About">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-        <circle cx="6.5" cy="4.5" r="2.25" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M1.5 12C2 8.8 4 7 6.5 7C9 7 11 8.8 11.5 12"
-              stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-    </button>
-
-    <!-- Password (locked state only) -->
-    <button class="dot dot-icon dot-locked-only" aria-label="Case studies">
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-        <rect x="2.5" y="6" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M4.5 6V4.5a2 2 0 0 1 4 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-    </button>
-
-    <!-- Projects (unlocked state only) -->
-    <button class="dot dot-unlocked-only" aria-label="Project 1"></button>
-    <button class="dot dot-unlocked-only" aria-label="Project 2"></button>
-    <button class="dot dot-unlocked-only" aria-label="Project 3"></button>
-    <button class="dot dot-unlocked-only" aria-label="Project 4"></button>
-
-  </nav>
 
 
   <script>
@@ -289,26 +291,34 @@
     const heroEl    = document.getElementById('snap-hero');
     const isDesktop = () => window.innerWidth >= 1024;
 
-    // Sections and dots are queried dynamically so locked/unlocked visibility is respected
+    // Sections are queried dynamically so locked/unlocked visibility is respected
     function getActiveSections() {
       return Array.from(document.querySelectorAll('.snap-section'))
         .filter(el => getComputedStyle(el).display !== 'none');
     }
-    function getActiveDots() {
-      return Array.from(document.querySelectorAll('.dot-nav .dot'))
-        .filter(el => getComputedStyle(el).display !== 'none');
-    }
 
-    // ── Active dot + name visibility (desktop snap) ─────────────────────
-    function updateDots() {
-      if (!isDesktop()) return;
+    // ── Nav links: which one is current, and name visibility (desktop) ──
+    const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+    function groupOf(section) {
+      if (section.id === 'snap-about') return 'about';
+      if (section.id === 'snap-side') return 'side';
+      if (section.id === 'snap-password' || section.classList.contains('snap-project')) return 'work';
+      return null;
+    }
+    function updateActive() {
       const sections = getActiveSections();
-      const dots     = getActiveDots();
-      const mid      = scrollEl.scrollTop + scrollEl.clientHeight / 2;
-      let active = 0;
-      sections.forEach((s, i) => { if (s.offsetTop <= mid) active = i; });
-      dots.forEach((d, i) => d.classList.toggle('active', i === active));
-      mainNav.classList.toggle('past-hero', active > 0);
+      const mid = isDesktop()
+        ? scrollEl.scrollTop + scrollEl.clientHeight / 2
+        : window.scrollY + window.innerHeight / 2;
+      let active = sections[0];
+      sections.forEach(s => { if (s.offsetTop <= mid) active = s; });
+      const group = groupOf(active);
+      navLinks.forEach(link => {
+        const on = link.dataset.group === group;
+        link.classList.toggle('active', on);
+        if (on) link.setAttribute('aria-current', 'true'); else link.removeAttribute('aria-current');
+      });
+      if (isDesktop()) mainNav.classList.toggle('past-hero', active !== sections[0]);
     }
 
     // ── Nav border + name visibility (mobile) ───────────────────────────
@@ -325,21 +335,21 @@
       mainNav.classList.toggle('scrolled', scrollEl.scrollTop > 60);
     }
 
-    scrollEl.addEventListener('scroll', () => { updateNavDesktop(); updateDots(); }, { passive: true });
-    window.addEventListener('scroll', updateNavMobile, { passive: true });
+    scrollEl.addEventListener('scroll', () => { updateNavDesktop(); updateActive(); }, { passive: true });
+    window.addEventListener('scroll', () => { updateNavMobile(); updateActive(); }, { passive: true });
 
-    // ── Dot click ────────────────────────────────────────────────────────
-    document.querySelectorAll('.dot-nav .dot').forEach(dot => {
-      dot.addEventListener('click', () => {
-        const dots     = getActiveDots();
-        const sections = getActiveSections();
-        const i = dots.indexOf(dot);
-        if (i >= 0) sections[i]?.scrollIntoView({ behavior: 'smooth' });
+    // ── Nav link click: Work goes to the password or the first case study ─
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        let target = document.getElementById(link.getAttribute('href').slice(1));
+        if (target && getComputedStyle(target).display === 'none') target = document.getElementById('snap-password');
+        target?.scrollIntoView({ behavior: 'smooth' });
       });
     });
 
     // ── Anchor links → scroll inside container on desktop ───────────────
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
+    document.querySelectorAll('a[href^="#"]:not(.nav-links a)').forEach(link => {
       link.addEventListener('click', e => {
         if (!isDesktop()) return;
         const target = document.getElementById(link.getAttribute('href').slice(1));
@@ -350,8 +360,26 @@
       });
     });
 
+    // ── Side projects: copy buttons, and still video for reduced motion ──
+    document.querySelectorAll('.side-copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy);
+          button.textContent = 'Copied';
+          setTimeout(() => { button.textContent = 'Copy'; }, 1600);
+        } catch (e) {}
+      });
+    });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.fp-image--video video').forEach(video => {
+        video.removeAttribute('autoplay');
+        video.pause();
+        video.controls = true;
+      });
+    }
+
     // ── Initial state ────────────────────────────────────────────────────
-    updateDots();
+    updateActive();
 
     // ── Hero word swap animation ─────────────────────────────────────────
     const swapEl    = document.getElementById('heroSwap');
@@ -412,7 +440,7 @@
         if (hash === PASSWORD_HASH) {
           sessionStorage.setItem('portfolioUnlocked', '1');
           document.body.classList.replace('locked', 'unlocked');
-          updateDots();
+          updateActive();
           const firstProject = document.getElementById('snap-work');
           if (isDesktop()) {
             firstProject?.scrollIntoView({ behavior: 'smooth' });
@@ -446,7 +474,7 @@
       } else {
         window.scrollTo(0, pos);
       }
-      updateDots();
+      updateActive();
     }
   </script>
 

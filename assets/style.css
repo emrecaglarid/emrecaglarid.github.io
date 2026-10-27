@@ -71,6 +71,56 @@ nav {
 
 nav.past-hero .nav-name { opacity: 1; }
 
+/* Section links, in a pill at the top center */
+.nav-inner { position: relative; }
+
+.nav-links {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  background: rgba(247, 245, 242, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: color 0.15s, background-color 0.15s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active {
+  color: var(--text);
+  background-color: var(--surface);
+}
+.nav-links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Phones: name on the left, links on the right */
+@media (max-width: 767px) {
+  .nav-links {
+    position: static;
+    transform: none;
+    margin-left: auto;
+  }
+  .nav-links a { padding: 5px 10px; }
+}
+@media (max-width: 380px) {
+  .nav-links a { padding: 5px 8px; font-size: 12px; }
+}
+
 /* ─── Hero ─── */
 .hero {
   padding: 100px 0 80px;
@@ -724,73 +774,6 @@ footer {
   margin-top: 40px;
 }
 
-/* ─── Dot Navigation ─── */
-.dot-nav {
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .dot-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    position: fixed;
-    right: 28px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 150;
-    padding: 10px 8px;
-    background: rgba(247, 245, 242, 0.82);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 20px;
-  }
-}
-
-/* All items: same 20×20 box so gap is visually uniform */
-.dot-nav .dot {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  outline: none;
-}
-
-/* Plain project dots: visual circle via ::after */
-.dot-nav .dot:not(.dot-icon)::after {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--border);
-  transition: background-color 0.25s, transform 0.25s;
-}
-.dot-nav .dot:not(.dot-icon).active::after {
-  background-color: var(--text);
-  transform: scale(1.7);
-}
-.dot-nav .dot:not(.dot-icon):hover:not(.active)::after {
-  background-color: var(--text-muted);
-}
-
-/* Icon buttons */
-.dot-nav .dot.dot-icon {
-  color: var(--border);
-  transition: color 0.2s;
-}
-.dot-nav .dot.dot-icon.active {
-  color: var(--text);
-}
-.dot-nav .dot.dot-icon:hover:not(.active) {
-  color: var(--text-muted);
-}
-
 /* ─── Mobile / Tablet: project cards stack naturally ─── */
 @media (max-width: 1023px) {
   .snap-section {
@@ -991,33 +974,9 @@ footer {
 /* ─── Password gate ─── */
 body.locked .snap-project      { display: none; }
 body.unlocked .snap-password   { display: none; }
-body.locked .dot-unlocked-only { display: none; }
-body.unlocked .dot-locked-only { display: none; }
-
-.snap-password .container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.password-eyebrow {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-}
-
-.password-prompt {
-  font-size: clamp(24px, 3vw, 36px);
-  font-weight: 400;
-  color: var(--text-muted);
-  line-height: 1.3;
-  margin-bottom: 40px;
-}
 
 .password-form {
+  margin-top: 4px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -1840,3 +1799,66 @@ nav:has(.case-section-title) .nav-name {
 }
 .expand-btn:hover { color: var(--text); border-color: var(--text-muted); }
 .expand-btn[aria-expanded="true"] { display: none; }
+
+
+/* ─── Side projects: work-slide layout, plus video and an install line ─── */
+
+.fp-image--video video {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: var(--surface);
+}
+@media (min-width: 1024px) {
+  .fp-image--video video { border-radius: 8px 0 0 8px; }
+  .side-install code { white-space: nowrap; }
+}
+
+/* Sits where the work slides have their Role and Year */
+.side-install {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.side-install code {
+  min-width: 0;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* Quiet like the password arrow, until pointed at */
+.side-copy {
+  flex: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.side-copy:hover { color: var(--text); }
+.side-copy:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+
+/* Mobile: the sticky nav doesn't cover a section's top when a link jumps there */
+@media (max-width: 1023px) {
+  .snap-section { scroll-margin-top: 64px; }
+  #snap-side,
+  #snap-password {
+    border-top: 1px solid var(--border);
+  }
+}
